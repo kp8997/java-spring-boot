@@ -1,4 +1,4 @@
-package com.kp8997.springboot.myapp.rest;
+package com.kp8997.springboot.myapp.common;
 
 import org.springframework.stereotype.Component;
 
