@@ -12,6 +12,11 @@ public class FunRestController {
 
     @GetMapping("/user")
     public String getUser() {
-        return "user";
+        return "User";
+    }
+
+    @GetMapping("/rocket")
+    public String getRocket() {
+        return "Rocket";
     }
 }
