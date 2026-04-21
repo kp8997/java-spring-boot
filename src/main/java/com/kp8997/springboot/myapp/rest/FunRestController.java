@@ -16,16 +16,16 @@ public class FunRestController {
     private Coach coach;
 
     @Autowired
-    public FunRestController(Coach coach) {
+    public FunRestController(@Qualifier("badmintonCoach") Coach coach) {
         // this automatically initialized the CricketCoach as Coach
         this.coach = coach;
     }
 
     // should not have the same type of @Autowired
-    @Autowired
-    public void setCoach(BadmintonCoach badmintonCoach) {
-        this.coach = badmintonCoach;
-    }
+    //@Autowired
+    //public void setCoach(BadmintonCoach badmintonCoach) {
+    //    this.coach = badmintonCoach;
+    //}
 
     @GetMapping("/workout")
     public String getDailyWorkout() {
