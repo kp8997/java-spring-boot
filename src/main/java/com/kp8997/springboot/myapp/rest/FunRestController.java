@@ -9,4 +9,9 @@ public class FunRestController {
     public String sayHello() {
         return "Hello World!";
     }
+
+    @GetMapping("/user")
+    public String getUser() {
+        return "user";
+    }
 }
