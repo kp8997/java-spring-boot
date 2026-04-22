@@ -13,13 +13,27 @@ public class FunRestController {
     @Value("${spring.application.author.name}")
     private String author;
 
-    private Coach coach;
+    private final Coach coach;
+    private final Coach anotherCoach;
+
+    private final Coach coach1;
+    private final Coach anotherCoach1;
+
 
     @Autowired
-    public FunRestController(@Qualifier("badmintonCoach") Coach coach) {
+    public FunRestController(
+            @Qualifier("badmintonCoach") Coach coach,
+            @Qualifier("badmintonCoach") Coach anotherCoach,
+            @Qualifier("cricketCoach") Coach coach1,
+            @Qualifier("cricketCoach") Coach anotherCoach1
+            ) {
         System.out.println("In constructor: " + getClass().getSimpleName());
         // this automatically initialized the CricketCoach as Coach
         this.coach = coach;
+        this.anotherCoach = anotherCoach;
+
+        this.coach1 = coach1;
+        this.anotherCoach1 = anotherCoach1;
     }
 
     // should not have the same type of @Autowired
@@ -27,6 +41,16 @@ public class FunRestController {
     //public void setCoach(BadmintonCoach badmintonCoach) {
     //    this.coach = badmintonCoach;
     //}
+
+    @GetMapping("/check-badminton")
+    public String getCheckBadminton() {
+        return "Comparing beans Badminton Coach: coach == anotherCoach, " + (coach == anotherCoach);
+    }
+
+    @GetMapping("/check-cricket")
+    public String getCheckCricket() {
+        return "Comparing beans Cricket Coach: coach == anotherCoach, " + (coach1 == anotherCoach1);
+    }
 
     @GetMapping("/workout")
     public String getDailyWorkout() {
