@@ -17,6 +17,7 @@ public class FunRestController {
 
     @Autowired
     public FunRestController(@Qualifier("badmintonCoach") Coach coach) {
+        System.out.println("In constructor: " + getClass().getSimpleName());
         // this automatically initialized the CricketCoach as Coach
         this.coach = coach;
     }
