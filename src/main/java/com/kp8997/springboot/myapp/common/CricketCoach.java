@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 @Component
 @Lazy
 // default is singleton, every instance of DI is different
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+// should not use it if not necessary because it won't be clean up by destroy trigger of spring boot
+// spring boot hand it off to the dev to clean it up themself
+//@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class CricketCoach implements Coach {
 
     public CricketCoach() {
