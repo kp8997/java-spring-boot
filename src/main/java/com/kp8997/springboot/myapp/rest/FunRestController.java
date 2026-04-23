@@ -27,7 +27,7 @@ public class FunRestController {
             @Qualifier("badmintonCoach") Coach anotherCoach,
             @Qualifier("cricketCoach") Coach coach1,
             @Qualifier("cricketCoach") Coach anotherCoach1,
-            @Qualifier("swimCoach") Coach swimCoach
+            @Qualifier("aquatic") Coach swimCoach
             ) {
         System.out.println("In constructor: " + getClass().getSimpleName());
         // this automatically initialized the CricketCoach as Coach
