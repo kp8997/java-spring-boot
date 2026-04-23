@@ -19,13 +19,15 @@ public class FunRestController {
     private final Coach coach1;
     private final Coach anotherCoach1;
 
+    private final Coach swimCoach;
 
     @Autowired
     public FunRestController(
             @Qualifier("badmintonCoach") Coach coach,
             @Qualifier("badmintonCoach") Coach anotherCoach,
             @Qualifier("cricketCoach") Coach coach1,
-            @Qualifier("cricketCoach") Coach anotherCoach1
+            @Qualifier("cricketCoach") Coach anotherCoach1,
+            @Qualifier("swimCoach") Coach swimCoach
             ) {
         System.out.println("In constructor: " + getClass().getSimpleName());
         // this automatically initialized the CricketCoach as Coach
@@ -34,6 +36,8 @@ public class FunRestController {
 
         this.coach1 = coach1;
         this.anotherCoach1 = anotherCoach1;
+
+        this.swimCoach = swimCoach;
     }
 
     // should not have the same type of @Autowired
@@ -41,6 +45,11 @@ public class FunRestController {
     //public void setCoach(BadmintonCoach badmintonCoach) {
     //    this.coach = badmintonCoach;
     //}
+
+    @GetMapping("/check-swim")
+    public String getCheckSwim() {
+        return this.swimCoach.getDailyWorkout();
+    }
 
     @GetMapping("/check-badminton")
     public String getCheckBadminton() {
