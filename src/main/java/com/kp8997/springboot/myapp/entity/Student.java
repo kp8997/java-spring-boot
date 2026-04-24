@@ -3,7 +3,7 @@ package com.kp8997.springboot.myapp.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="student")
+@Table(name="students")
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

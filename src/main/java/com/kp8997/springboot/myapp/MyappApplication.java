@@ -1,5 +1,7 @@
 package com.kp8997.springboot.myapp;
 
+import com.kp8997.springboot.myapp.dao.StudentDAO;
+import com.kp8997.springboot.myapp.entity.Student;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,9 +22,22 @@ public class MyappApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner() {
+	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 		return r -> {
+			createStudent(studentDAO);
 			System.out.println("Hello World");
 		};
+	}
+
+	private void createStudent(StudentDAO studentDAO) {
+		System.out.println("Create a new student object");
+		Student student = new Student("John", "Doe", "doejohn@test.com");
+
+		studentDAO.save(student);
+
+		System.out.println("Saving the student object");
+
+		System.out.println("Student saved. Id: " + student.id);
+
 	}
 }
