@@ -25,8 +25,9 @@ public class MyappApplication {
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 		return r -> {
 			//createStudent(studentDAO);
-			createMultipleStudents(studentDAO);
+			//createMultipleStudents(studentDAO);
 			System.out.println("Hello World");
+			createAndRetrieveStudent(studentDAO);
 		};
 	}
 
@@ -38,7 +39,7 @@ public class MyappApplication {
 
 		System.out.println("Saving the student object");
 
-		System.out.println("Student saved. Id: " + student.id);
+		System.out.println("Student saved. Id: " + student.getId());
 	}
 
 	private void createMultipleStudents(StudentDAO studentDAO) {
@@ -50,5 +51,18 @@ public class MyappApplication {
 		studentDAO.save(student1);
 		studentDAO.save(student2);
 		studentDAO.save(student3);
+	}
+
+	private void createAndRetrieveStudent(StudentDAO studentDAO) {
+		System.out.println("Create student object");
+		Student student = new Student("Dazzy", "Dougless", "dg@test.com");
+
+		System.out.println("Saving student info");
+		studentDAO.save(student);
+
+		System.out.println("Retrieve new student: " + student.getId());
+		Student retrievedStudent = studentDAO.findById(student.getId());
+
+		System.out.println("Returned student: " + retrievedStudent);
 	}
 }

@@ -8,16 +8,16 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    public int id;
+    private int id;
 
     @Column(name="first_name")
-    public String firstName;
+    private String firstName;
 
     @Column(name="last_name")
-    public String lastName;
+    private String lastName;
 
     @Column(name="email")
-    public String email;
+    private String email;
 
     public Student() {
     }
