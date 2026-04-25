@@ -26,13 +26,22 @@ public class MyappApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 		return r -> {
+			System.out.println("Hello World");
+
 			//createStudent(studentDAO);
 			//createMultipleStudents(studentDAO);
-			System.out.println("Hello World");
 			//createAndRetrieveStudent(studentDAO);
-
-			queryAllStudents(studentDAO);
+			//queryAllStudents(studentDAO);
+			queryStudentsByLastName(studentDAO);
 		};
+	}
+
+	private void queryStudentsByLastName(StudentDAO studentDAO) {
+		var students = studentDAO.findByLastName("Doe");
+
+		for (Student s : students) {
+			System.out.println(s);
+		}
 	}
 
 	private void queryAllStudents(StudentDAO studentDAO) {

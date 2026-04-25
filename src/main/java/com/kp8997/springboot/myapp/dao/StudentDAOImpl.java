@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class StudentDAOImpl implements StudentDAO{
+public class StudentDAOImpl implements StudentDAO {
     private EntityManager entityManager;
 
     @Autowired
@@ -31,5 +31,12 @@ public class StudentDAOImpl implements StudentDAO{
     @Override
     public List<Student> findAll() {
         return entityManager.createQuery("SELECT s FROM Student s ORDER BY s.lastName", Student.class).getResultList();
+    }
+
+    @Override
+    public List<Student> findByLastName(String lastName) {
+        var query = entityManager.createQuery("SELECT s FROM Student s WHERE s.lastName = :lastName", Student.class);
+        return query.setParameter("lastName", lastName).getResultList();
+
     }
 }
