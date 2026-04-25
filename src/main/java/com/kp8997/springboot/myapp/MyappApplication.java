@@ -6,6 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.util.List;
 //import org.springframework.boot.security.autoconfigure.SecurityAutoConfiguration;
 //import org.springframework.boot.security.autoconfigure.actuate.web.servlet.ManagementWebSecurityAutoConfiguration;
 
@@ -27,8 +29,18 @@ public class MyappApplication {
 			//createStudent(studentDAO);
 			//createMultipleStudents(studentDAO);
 			System.out.println("Hello World");
-			createAndRetrieveStudent(studentDAO);
+			//createAndRetrieveStudent(studentDAO);
+
+			queryAllStudents(studentDAO);
 		};
+	}
+
+	private void queryAllStudents(StudentDAO studentDAO) {
+		var students = studentDAO.findAll();
+
+		for (Student s : students) {
+			System.out.println(s);
+		}
 	}
 
 	private void createStudent(StudentDAO studentDAO) {
