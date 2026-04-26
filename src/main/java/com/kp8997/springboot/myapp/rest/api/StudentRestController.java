@@ -36,12 +36,14 @@ public class StudentRestController {
         return studentDAO.getAllStudents();
     }
 
-    //@GetMapping("/students/{studentId}")
-    //public Student getStudent(@PathVariable int studentId) {
-    //    if ((studentId >= theStudents.size()) || (studentId < 0)) {
-    //        throw new RuntimeException("Student id not found - " + studentId);
-    //    }
-    //    return theStudents.get(studentId);
-    //}
+    @GetMapping("/students/{studentId}")
+    public Student getStudent(@PathVariable int studentId) {
+        //if ((studentId >= theStudents.size()) || (studentId < 0)) {
+        //    throw new RuntimeException("Student id not found - " + studentId);
+        //}
+        //return theStudents.get(studentId);
+
+        return studentDAO.findById(studentId);
+    }
 
 }
