@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class StudentDAOImpl implements StudentDAO {
@@ -24,8 +25,8 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public Student findById(int id) {
-        return entityManager.find(Student.class, id);
+    public Optional<Student> findById(int id) {
+        return Optional.ofNullable(entityManager.find(Student.class, id));
     }
 
     @Override
@@ -71,7 +72,9 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     // get method doesn't need transactional annotation
-    public List<Student> getAllStudents() {
-        return entityManager.createQuery("SELECT s FROM Student s ORDER BY s.firstName", Student.class).getResultList();
+    public Optional<List<Student>> getAllStudents() {
+        return Optional.ofNullable(entityManager
+                .createQuery("SELECT s FROM Student s ORDER BY s.firstName", Student.class)
+                .getResultList());
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -32,17 +33,16 @@ public class StudentRestController {
     //}
 
     @GetMapping("/students")
-    public List<Student> getStudents() {
+    public Optional<List<Student>> getStudents() {
         return studentDAO.getAllStudents();
     }
 
     @GetMapping("/students/{studentId}")
-    public Student getStudent(@PathVariable int studentId) {
+    public Optional<Student> getStudent(@PathVariable int studentId) {
         //if ((studentId >= theStudents.size()) || (studentId < 0)) {
         //    throw new RuntimeException("Student id not found - " + studentId);
         //}
         //return theStudents.get(studentId);
-
         return studentDAO.findById(studentId);
     }
 

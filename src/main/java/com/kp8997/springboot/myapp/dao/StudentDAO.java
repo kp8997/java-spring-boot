@@ -3,12 +3,13 @@ package com.kp8997.springboot.myapp.dao;
 import com.kp8997.springboot.myapp.entity.Student;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface StudentDAO {
 
     void save(Student student);
 
-    Student findById(int id);
+    Optional<Student> findById(int id);
 
     List<Student> findAll();
 
@@ -20,5 +21,5 @@ public interface StudentDAO {
 
     int deleteAll();
 
-    List<Student> getAllStudents();
+    Optional<List<Student>> getAllStudents();
 }

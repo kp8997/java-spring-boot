@@ -7,7 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.List;
+import java.util.Optional;
 //import org.springframework.boot.security.autoconfigure.SecurityAutoConfiguration;
 //import org.springframework.boot.security.autoconfigure.actuate.web.servlet.ManagementWebSecurityAutoConfiguration;
 
@@ -47,7 +47,10 @@ public class MyappApplication {
 
 	private void deleteStudent(StudentDAO studentDAO) {
 		int id = 3;
-		Student student = studentDAO.findById(id);
+		Optional<Student> student = studentDAO.findById(id);
+		if (student.isEmpty()) {
+			return;
+		}
 		System.out.println("Before delete Student: " + student);
 
 		System.out.println("Deleting student with id: " + id);
@@ -58,13 +61,16 @@ public class MyappApplication {
 
 	private void updateStudent(StudentDAO studentDAO) {
 		int id = 2;
-		Student student = studentDAO.findById(id);
+		Optional<Student> student = studentDAO.findById(id);
+		if (student.isEmpty()) {
+			return;
+		}
 		System.out.println("Before update Student: " + student);
 
 		System.out.println("Updating student with id: " + id);
-		student.setFirstName("Scooby");
+		student.get().setFirstName("Scooby");
 
-		studentDAO.update(student);
+		studentDAO.update(student.orElse(null));
 
 		System.out.println("Updated student: " + student);
 	}
@@ -115,7 +121,10 @@ public class MyappApplication {
 		studentDAO.save(student);
 
 		System.out.println("Retrieve new student: " + student.getId());
-		Student retrievedStudent = studentDAO.findById(student.getId());
+		Optional<Student> retrievedStudent = studentDAO.findById(student.getId());
+		if (retrievedStudent.isEmpty()) {
+			return;
+		}
 
 		System.out.println("Returned student: " + retrievedStudent);
 	}
