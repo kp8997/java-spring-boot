@@ -33,8 +33,8 @@ public class MyappApplication {
 			//createAndRetrieveStudent(studentDAO);
 			//queryAllStudents(studentDAO);
 			//queryStudentsByLastName(studentDAO);
-
-			updateStudent(studentDAO);
+			//updateStudent(studentDAO);
+			deleteStudent(studentDAO);
 		};
 	}
 
@@ -44,9 +44,9 @@ public class MyappApplication {
 		System.out.println("Before delete Student: " + student);
 
 		System.out.println("Deleting student with id: " + id);
-		studentDAO.delete(student);
+		studentDAO.delete(id);
 
-		System.out.println("After Deleted student: " + student);
+		System.out.println("After Deleted student");
 	}
 
 	private void updateStudent(StudentDAO studentDAO) {
