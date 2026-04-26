@@ -1,4 +1,4 @@
-package com.kp8997.springboot.myapp.rest.error;
+package com.kp8997.springboot.myapp.common.exception;
 
 
 public class StudentNotFoundException extends RuntimeException {

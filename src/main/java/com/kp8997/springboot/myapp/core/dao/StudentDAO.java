@@ -1,6 +1,6 @@
-package com.kp8997.springboot.myapp.dao;
+package com.kp8997.springboot.myapp.core.dao;
 
-import com.kp8997.springboot.myapp.entity.Student;
+import com.kp8997.springboot.myapp.core.entity.Student;
 
 import java.util.List;
 import java.util.Optional;

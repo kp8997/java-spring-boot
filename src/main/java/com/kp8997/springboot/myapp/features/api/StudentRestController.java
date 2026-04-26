@@ -1,16 +1,10 @@
-package com.kp8997.springboot.myapp.rest.api;
+package com.kp8997.springboot.myapp.features.api;
 
-import com.kp8997.springboot.myapp.dao.StudentDAO;
-import com.kp8997.springboot.myapp.entity.Student;
-import com.kp8997.springboot.myapp.rest.error.StudentErrorResponse;
-import com.kp8997.springboot.myapp.rest.error.StudentNotFoundException;
-import jakarta.annotation.PostConstruct;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.kp8997.springboot.myapp.core.dao.StudentDAO;
+import com.kp8997.springboot.myapp.core.entity.Student;
+import com.kp8997.springboot.myapp.common.exception.StudentNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

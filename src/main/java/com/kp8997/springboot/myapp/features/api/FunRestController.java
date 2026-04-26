@@ -1,6 +1,5 @@
-package com.kp8997.springboot.myapp.rest;
+package com.kp8997.springboot.myapp.features.api;
 
-import com.kp8997.springboot.myapp.common.BadmintonCoach;
 import com.kp8997.springboot.myapp.common.Coach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

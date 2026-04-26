@@ -1,6 +1,6 @@
-package com.kp8997.springboot.myapp.dao;
+package com.kp8997.springboot.myapp.core.dao;
 
-import com.kp8997.springboot.myapp.entity.Student;
+import com.kp8997.springboot.myapp.core.entity.Student;
 import jakarta.persistence.EntityManager;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

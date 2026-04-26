@@ -1,7 +1,7 @@
 package com.kp8997.springboot.myapp;
 
-import com.kp8997.springboot.myapp.dao.StudentDAO;
-import com.kp8997.springboot.myapp.entity.Student;
+import com.kp8997.springboot.myapp.core.dao.StudentDAO;
+import com.kp8997.springboot.myapp.core.entity.Student;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

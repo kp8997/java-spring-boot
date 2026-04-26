@@ -1,4 +1,4 @@
-package com.kp8997.springboot.myapp.entity;
+package com.kp8997.springboot.myapp.core.entity;
 
 import jakarta.persistence.*;
 

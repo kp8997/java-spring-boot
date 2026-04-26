@@ -1,10 +1,7 @@
-package com.kp8997.springboot.myapp.rest;
+package com.kp8997.springboot.myapp.common.exception;
 
-import com.kp8997.springboot.myapp.rest.error.StudentErrorResponse;
-import com.kp8997.springboot.myapp.rest.error.StudentNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
