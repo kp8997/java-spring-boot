@@ -2,11 +2,12 @@ package com.kp8997.springboot.myapp.rest.api;
 
 import com.kp8997.springboot.myapp.dao.StudentDAO;
 import com.kp8997.springboot.myapp.entity.Student;
+import com.kp8997.springboot.myapp.rest.error.StudentErrorResponse;
+import com.kp8997.springboot.myapp.rest.error.StudentNotFoundException;
 import jakarta.annotation.PostConstruct;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,21 @@ public class StudentRestController {
         //    throw new RuntimeException("Student id not found - " + studentId);
         //}
         //return theStudents.get(studentId);
-        return studentDAO.findById(studentId);
+        var result = studentDAO.findById(studentId);
+        if (result.isEmpty()) {
+            throw new StudentNotFoundException("Student id not found - " + studentId);
+        }
+        return result;
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<StudentErrorResponse> handleException(StudentNotFoundException e) {
+        StudentErrorResponse error = new StudentErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                e.getMessage(),
+                System.currentTimeMillis());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
 }
