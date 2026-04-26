@@ -50,7 +50,7 @@ public class MyappApplication {
 	}
 
 	private void updateStudent(StudentDAO studentDAO) {
-		int id = 2;—
+		int id = 2;
 		Student student = studentDAO.findById(id);
 		System.out.println("Before update Student: " + student);
 
