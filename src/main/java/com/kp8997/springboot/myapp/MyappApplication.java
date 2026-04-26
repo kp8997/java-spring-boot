@@ -38,8 +38,19 @@ public class MyappApplication {
 		};
 	}
 
+	private void deleteStudent(StudentDAO studentDAO) {
+		int id = 3;
+		Student student = studentDAO.findById(id);
+		System.out.println("Before delete Student: " + student);
+
+		System.out.println("Deleting student with id: " + id);
+		studentDAO.delete(student);
+
+		System.out.println("After Deleted student: " + student);
+	}
+
 	private void updateStudent(StudentDAO studentDAO) {
-		int id = 2;
+		int id = 2;—
 		Student student = studentDAO.findById(id);
 		System.out.println("Before update Student: " + student);
 
