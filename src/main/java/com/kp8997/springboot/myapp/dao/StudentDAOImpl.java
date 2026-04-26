@@ -68,4 +68,10 @@ public class StudentDAOImpl implements StudentDAO {
     public int deleteAll() {
         return entityManager.createQuery("DELETE FROM Student").executeUpdate();
     }
+
+    @Override
+    // get method doesn't need transactional annotation
+    public List<Student> getAllStudents() {
+        return entityManager.createQuery("SELECT s FROM Student s ORDER BY s.firstName", Student.class).getResultList();
+    }
 }
