@@ -29,13 +29,13 @@ public class MyappApplication {
 			System.out.println("Hello World");
 
 			//createStudent(studentDAO);
-			//createMultipleStudents(studentDAO);
+			createMultipleStudents(studentDAO);
 			//createAndRetrieveStudent(studentDAO);
 			//queryAllStudents(studentDAO);
 			//queryStudentsByLastName(studentDAO);
 			//updateStudent(studentDAO);
 			//deleteStudent(studentDAO);
-			deleteAllStudents(studentDAO);
+			//deleteAllStudents(studentDAO);
 		};
 	}
 
