@@ -32,8 +32,23 @@ public class MyappApplication {
 			//createMultipleStudents(studentDAO);
 			//createAndRetrieveStudent(studentDAO);
 			//queryAllStudents(studentDAO);
-			queryStudentsByLastName(studentDAO);
+			//queryStudentsByLastName(studentDAO);
+
+			updateStudent(studentDAO);
 		};
+	}
+
+	private void updateStudent(StudentDAO studentDAO) {
+		int id = 2;
+		Student student = studentDAO.findById(id);
+		System.out.println("Before update Student: " + student);
+
+		System.out.println("Updating student with id: " + id);
+		student.setFirstName("Scooby");
+
+		studentDAO.update(student);
+
+		System.out.println("Updated student: " + student);
 	}
 
 	private void queryStudentsByLastName(StudentDAO studentDAO) {
