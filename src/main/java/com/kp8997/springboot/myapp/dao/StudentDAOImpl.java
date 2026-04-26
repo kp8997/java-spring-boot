@@ -57,7 +57,8 @@ public class StudentDAOImpl implements StudentDAO {
         // remove() find it detached and can not delete
         // the object must be in managed state if we modify through persistent context
         // another way to fix is perform find in this method that are all under a transaction
-        //entityManager.remove(student);
+        // findById(student.id)
+        // gentityManager.remove(student);
 
         entityManager.remove(entityManager.find(Student.class, studentId));
     }
