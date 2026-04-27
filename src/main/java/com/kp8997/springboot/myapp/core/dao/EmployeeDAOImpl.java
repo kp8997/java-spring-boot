@@ -27,18 +27,14 @@ public class EmployeeDAOImpl implements  EmployeeDAO {
         return Optional.ofNullable(entityManager.find(Employee.class, id));
     }
 
+    // for both insert and update
     @Override
-    public void save(Employee employee) {
-
+    public Employee save(Employee employee) {
+        return entityManager.merge(employee);
     }
 
     @Override
     public void deleteById(int id) {
-
-    }
-
-    @Override
-    public void update(Employee employee) {
-
+        entityManager.remove(entityManager.find(Employee.class, id));
     }
 }

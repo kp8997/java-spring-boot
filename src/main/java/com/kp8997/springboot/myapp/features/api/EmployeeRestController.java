@@ -3,11 +3,9 @@ package com.kp8997.springboot.myapp.features.api;
 import com.kp8997.springboot.myapp.common.exception.EntityNotFoundException;
 import com.kp8997.springboot.myapp.core.dao.EmployeeDAO;
 import com.kp8997.springboot.myapp.core.entity.Employee;
+import com.kp8997.springboot.myapp.features.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,22 +13,24 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/employees")
 public class EmployeeRestController {
-    private final EmployeeDAO employeeDAO;
+    private EmployeeService employeeService;
 
-    @Autowired
-    public EmployeeRestController(EmployeeDAO employeeDAO) {
-        this.employeeDAO = employeeDAO;
+    public EmployeeRestController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     @GetMapping("")
     public List<Employee> findAll() {
-        return employeeDAO.findAll();
+        return employeeService.findAll();
     }
 
     @GetMapping("/{employeeId}")
     public Employee findById(@PathVariable int employeeId) {
-        return employeeDAO.findById(employeeId).orElseThrow(
-                () -> new EntityNotFoundException("Employee id not found - " + employeeId)
-        );
+        return employeeService.findById(employeeId);
+    }
+
+    @PostMapping("")
+    public Employee save(@RequestBody Employee employee) {
+        return employeeService.save(employee);
     }
 }
