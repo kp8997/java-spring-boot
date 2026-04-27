@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public class StudentDAOImpl implements StudentDAO {
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     @Autowired
     public StudentDAOImpl(EntityManager entityManager) {
@@ -72,9 +72,9 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     // get method doesn't need transactional annotation
-    public Optional<List<Student>> getAllStudents() {
-        return Optional.ofNullable(entityManager
+    public List<Student> getAllStudents() {
+        return entityManager
                 .createQuery("SELECT s FROM Student s ORDER BY s.firstName", Student.class)
-                .getResultList());
+                .getResultList();
     }
 }

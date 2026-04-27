@@ -21,5 +21,5 @@ public interface StudentDAO {
 
     int deleteAll();
 
-    Optional<List<Student>> getAllStudents();
+    List<Student> getAllStudents();
 }

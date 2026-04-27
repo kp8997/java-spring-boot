@@ -1,17 +1,17 @@
 package com.kp8997.springboot.myapp.common.exception;
 
-public class StudentErrorResponse {
+public class EntityErrorResponse {
     private int status;
     private String message;
     private long timestamp;
 
-    public StudentErrorResponse(int status, String message, long timestamp) {
+    public EntityErrorResponse(int status, String message, long timestamp) {
         this.status = status;
         this.message = message;
         this.timestamp = timestamp;
     }
 
-    public StudentErrorResponse() {
+    public EntityErrorResponse() {
     }
 
     public int getStatus() {
