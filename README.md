@@ -5,7 +5,7 @@ CREATE ROLE admin_spring WITH LOGIN SUPERUSER PASSWORD 'p@ssw0rd123';
 CREATE TABLE students (id SERIAL NOT NULL PRIMARY KEY, first_name VARCHAR(45) DEFAULT NULL, last_name VARCHAR(45) DEFAULT NULL, email VARCHAR(45) DEFAULT NULL );
 
 // Create db for employee_directory
-CREATE DATABASE employee_directory;
+// CREATE DATABASE employee_directory;
 
 // Create table
 CREATE TABLE employees (
