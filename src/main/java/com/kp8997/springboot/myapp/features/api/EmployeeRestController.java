@@ -1,14 +1,10 @@
 package com.kp8997.springboot.myapp.features.api;
 
-import com.kp8997.springboot.myapp.common.exception.EntityNotFoundException;
-import com.kp8997.springboot.myapp.core.dao.EmployeeDAO;
 import com.kp8997.springboot.myapp.core.entity.Employee;
 import com.kp8997.springboot.myapp.features.service.EmployeeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/employees")
@@ -30,7 +26,11 @@ public class EmployeeRestController {
     }
 
     @PostMapping("")
-    public Employee save(@RequestBody Employee employee) {
+    public Employee addEmployee(@RequestBody Employee employee) {
+        // save now use for both update and insert
+        // set to 0 make sure it is a new object
+        employee.setId(null);
+
         return employeeService.save(employee);
     }
 }
