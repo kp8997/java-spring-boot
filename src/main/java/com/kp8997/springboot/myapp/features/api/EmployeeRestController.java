@@ -13,7 +13,7 @@ import java.util.Map;
 @RequestMapping("/api/employees")
 public class EmployeeRestController {
     private final EmployeeService employeeService;
-    private JsonMapper jsonMapper;
+    private final JsonMapper jsonMapper;
 
     public EmployeeRestController(EmployeeService employeeService, JsonMapper jsonMapper) {
         this.employeeService = employeeService;
@@ -62,5 +62,19 @@ public class EmployeeRestController {
         Employee patchedEmployee = jsonMapper.updateValue(employee, payload);
 
         return employeeService.save(patchedEmployee);
+    }
+
+    @DeleteMapping("/{employeeId}")
+    public String deleteEmployee(@PathVariable int employeeId) {
+
+        Employee employee = employeeService.findById(employeeId);
+
+        if (employee == null) {
+            throw new EntityNotFoundException("Employee id not found - " + employeeId);
+        }
+
+        employeeService.deleteById(employeeId);
+
+        return "Deleted employee id - " + employeeId;
     }
 }
