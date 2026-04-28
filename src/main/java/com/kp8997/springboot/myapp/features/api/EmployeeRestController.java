@@ -39,7 +39,7 @@ public class EmployeeRestController {
     }
 
     @PutMapping("")
-    public  Employee updateEmployee(@RequestBody Employee employee) {
+    public Employee updateEmployee(@RequestBody Employee employee) {
 
         if (employee.getId() == null) {
           throw new EntityNotFoundException("Student id is null");
