@@ -22,3 +22,19 @@ INSERT INTO employees VALUES
 (3,'Avani','Gupta','avani@luv2code.com'),
 (4,'Yuri','Petrov','yuri@luv2code.com'),
 (5,'Juan','Vega','juan@luv2code.com');
+
+// for starter-security jdbc
+// create users
+CREATE TABLE users (
+username VARCHAR(50) PRIMARY KEY,
+password VARCHAR(50) DEFAULT NULL,
+enabled SMALLINT NOT NULL
+);
+
+// seed data
+INSERT INTO users VALUES
+('john', '{noop}test123', 1),
+('marry', '{noop}test123', 1),
+('tim', '{noop}test123', 1);
+
+// create authorities
