@@ -48,19 +48,16 @@ public class EmployeeRestController {
 
     @PatchMapping("/{employeeId}")
     public Employee patchEmployee(@PathVariable int employeeId, @RequestBody Map<String, Object> payload) {
-
         Employee employee = employeeService.findById(employeeId);
 
         if (employee == null) {
             throw new EntityNotFoundException("Employee id not found - " + employeeId);
         }
-
         if (payload.containsKey("id")) {
             throw new RuntimeException("Employee id not allowed in request body - " + employeeId);
         }
 
         Employee patchedEmployee = jsonMapper.updateValue(employee, payload);
-
         return employeeService.save(patchedEmployee);
     }
 
