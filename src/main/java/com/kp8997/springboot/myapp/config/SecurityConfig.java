@@ -13,8 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
-    // spring security won't use the user/password configured in properties
-    // use this instead
+    // spring security won't use the user/password configured in properties and will use this instead
     @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
         UserDetails join = User.builder().username("john")
