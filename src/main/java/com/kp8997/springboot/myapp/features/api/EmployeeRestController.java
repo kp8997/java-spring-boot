@@ -66,7 +66,6 @@ public class EmployeeRestController {
 
     @DeleteMapping("/{employeeId}")
     public String deleteEmployee(@PathVariable int employeeId) {
-
         Employee employee = employeeService.findById(employeeId);
 
         if (employee == null) {
@@ -74,7 +73,6 @@ public class EmployeeRestController {
         }
 
         employeeService.deleteById(employeeId);
-
         return "Deleted employee id - " + employeeId;
     }
 }
