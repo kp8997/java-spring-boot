@@ -38,3 +38,18 @@ INSERT INTO users VALUES
 ('tim', '{noop}test123', 1);
 
 // create authorities
+CREATE TABLE authorities (
+username VARCHAR(50) NOT NULL,
+authority VARCHAR(50) NOT NULL,
+CONSTRAINT uq_authorities_username_authority UNIQUE (username, authority),
+CONSTRAINT authorities_ibfk FOREIGN KEY(username) REFERENCES users(username) ON DELETE CASCADE
+);
+
+// seed data
+INSERT INTO authorities VALUES
+('john', 'ROLE_EMPLOYEE'),
+('marry', 'ROLE_EMPLOYEE'),
+('marry', 'ROLE_MANAGER'),
+('tim', 'ROLE_EMPLOYEE'),
+('tim', 'ROLE_MANAGER'),
+('tim', 'ROLE_ADMIN');
