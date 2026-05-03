@@ -38,26 +38,31 @@ public class SecurityConfig {
     //    return new InMemoryUserDetailsManager(join, marry, tim);
     //}
 
-    //@Bean
-    //public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    //    http.authorizeHttpRequests(authorizeRequests ->
-    //            authorizeRequests
-    //                    .requestMatchers(HttpMethod.GET, "/api/employees").hasRole("EMPLOYEE")
-    //                    .requestMatchers(HttpMethod.GET, "/api/employees/**").hasRole("EMPLOYEE")
-    //                    .requestMatchers(HttpMethod.POST, "/api/employees").hasRole("MANAGER")
-    //                    .requestMatchers(HttpMethod.PUT, "/api/employees").hasRole("MANAGER")
-    //                    .requestMatchers(HttpMethod.PUT, "/api/employees/**").hasRole("MANAGER")
-    //                    .requestMatchers(HttpMethod.PATCH, "/api/employees/**").hasRole("MANAGER")
-    //                    .requestMatchers(HttpMethod.DELETE, "/api/employees/**").hasRole("ADMIN")
-    //    );
-    //                    http.httpBasic(Customizer.withDefaults());
-    //                    http.csrf(AbstractHttpConfigurer::disable);
-    //    return http.build();
-    //}
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authorizeRequests ->
+                authorizeRequests
+                        .requestMatchers(HttpMethod.GET, "/api/employees").hasRole("EMPLOYEE")
+                        .requestMatchers(HttpMethod.GET, "/api/employees/**").hasRole("EMPLOYEE")
+                        .requestMatchers(HttpMethod.POST, "/api/employees").hasRole("MANAGER")
+                        .requestMatchers(HttpMethod.PUT, "/api/employees").hasRole("MANAGER")
+                        .requestMatchers(HttpMethod.PUT, "/api/employees/**").hasRole("MANAGER")
+                        .requestMatchers(HttpMethod.PATCH, "/api/employees/**").hasRole("MANAGER")
+                        .requestMatchers(HttpMethod.DELETE, "/api/employees/**").hasRole("ADMIN")
+        );
+                        http.httpBasic(Customizer.withDefaults());
+                        http.csrf(AbstractHttpConfigurer::disable);
+
+                        System.out.println("filter chain");
+        return http.build();
+    }
 
     // custom bean with jdbc instead of chain above
+    // comment because i customized another bean in MyappApplication
     @Bean
     public UserDetailsManager userDetailsManager(DataSource dataSource) {
+        System.out.println("data source" + dataSource.toString());
+
         return new JdbcUserDetailsManager(dataSource);
     }
 }

@@ -6,7 +6,16 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.User.UserBuilder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
+import javax.sql.DataSource;
+import java.util.List;
 import java.util.Optional;
 
 // default, it will only look the main one com.kp8997.springboot.myapp in this case
@@ -17,119 +26,182 @@ import java.util.Optional;
 @SpringBootApplication
 public class MyappApplication {
 
-	static void main(String[] args) {
-		SpringApplication.run(MyappApplication.class, args);
-	}
+    static void main(String[] args) {
+        SpringApplication.run(MyappApplication.class, args);
+    }
 
-	@Bean
-	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
-		return r -> {
-			System.out.println("Hello World");
+    //@Bean
+    //public JdbcUserDetailsManager userDetailsManager(DataSource dataSource) {
+    //    JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
+    //    // 1. Override the "Create User" query to convert boolean to smallint
+    //    // PostgreSQL doesn't support casting boolean to smallint directly.
+    //    manager.setCreateUserSql(
+    //            "insert into users (username, password, enabled) values (?,?, CASE WHEN ? THEN 1 ELSE 0 END)"
+    //    );
+    //
+    //    // 2. Override the "Load User" query if necessary
+    //    // This ensures that when Spring reads the smallint, it treats 1 as true.
+    //    manager.setUsersByUsernameQuery(
+    //            "select username, password, (enabled::int = 1) as enabled from users where username = ?"
+    //    );
+    //
+    //    return manager;
+    //}
+    //
+    //@Bean
+    //public PasswordEncoder passwordEncoder() {
+    //    return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    //}
+    //
+    //@Bean
+    //CommandLineRunner initAdmin(
+    //        JdbcUserDetailsManager userDetailsManager,
+    //        PasswordEncoder passwordEncoder) {
+    //    return args -> {
+    //
+    //        List<String> usernames = List.of("john", "marry", "tim", "kan");
+    //
+    //        for (String username : usernames) {
+    //            if (userDetailsManager.userExists(username)) {
+    //                continue;
+    //            }
+    //
+    //            UserBuilder user = User.builder().username(username);
+    //
+    //            // When explicitly using BCryptPasswordEncoder, we shouldn't append {bcrypt}
+    //            String password = passwordEncoder.encode("test123");
+    //
+    //            if (username.equals("john")) {
+    //                user
+    //                        .password(password)
+    //                        .roles("EMPLOYEE");
+    //
+    //            }
+    //            if (username.equals("marry")) {
+    //                user
+    //                        .password(password)
+    //                        .roles("EMPLOYEE", "MANAGER");
+    //            }
+    //            if (username.equals("tim")) {
+    //                user
+    //                        .password(password)
+    //                        .roles("EMPLOYEE", "MANAGER", "ADMIN");
+    //            }
+    //            if (username.equals("kan")) {
+    //                user
+    //                        .password(password)
+    //                        .roles("EMPLOYEE", "MANAGER", "ADMIN");
+    //            }
+    //
+    //            UserDetails builder = user.build();
+    //            userDetailsManager.createUser(builder);
+    //        }
+    //    };
+    //}
 
-			//createStudent(studentDAO);
-			//createMultipleStudents(studentDAO);
-			//createAndRetrieveStudent(studentDAO);
-			//queryAllStudents(studentDAO);
-			//queryStudentsByLastName(studentDAO);
-			//updateStudent(studentDAO);
-			//deleteStudent(studentDAO);
-			//deleteAllStudents(studentDAO);
+    @Bean
+    public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
+        return r -> {
+            System.out.println("Hello World");
 
-			seedAuthoritiesUsers();
-		};
-	}
+            //createStudent(studentDAO);
+            //createMultipleStudents(studentDAO);
+            //createAndRetrieveStudent(studentDAO);
+            //queryAllStudents(studentDAO);
+            //queryStudentsByLastName(studentDAO);
+            //updateStudent(studentDAO);
+            //deleteStudent(studentDAO);
+            //deleteAllStudents(studentDAO);
+        };
+    }
 
-	private void seedAuthoritiesUsers() {
+    private void deleteAllStudents(StudentDAO studentDAO) {
+        System.out.println("Delete all students");
+        int num = studentDAO.deleteAll();
+        System.out.println("Deleted row count " + num);
+    }
 
-	}
+    private void deleteStudent(StudentDAO studentDAO) {
+        int id = 3;
+        Optional<Student> student = studentDAO.findById(id);
+        if (student.isEmpty()) {
+            return;
+        }
+        System.out.println("Before delete Student: " + student);
 
-	private void deleteAllStudents(StudentDAO studentDAO) {
-		System.out.println("Delete all students");
-		int num = studentDAO.deleteAll();
-		System.out.println("Deleted row count " + num);
-	}
+        System.out.println("Deleting student with id: " + id);
+        studentDAO.delete(id);
 
-	private void deleteStudent(StudentDAO studentDAO) {
-		int id = 3;
-		Optional<Student> student = studentDAO.findById(id);
-		if (student.isEmpty()) {
-			return;
-		}
-		System.out.println("Before delete Student: " + student);
+        System.out.println("After Deleted student");
+    }
 
-		System.out.println("Deleting student with id: " + id);
-		studentDAO.delete(id);
+    private void updateStudent(StudentDAO studentDAO) {
+        int id = 2;
+        Optional<Student> student = studentDAO.findById(id);
+        if (student.isEmpty()) {
+            return;
+        }
+        System.out.println("Before update Student: " + student);
 
-		System.out.println("After Deleted student");
-	}
+        System.out.println("Updating student with id: " + id);
+        student.get().setFirstName("Scooby");
 
-	private void updateStudent(StudentDAO studentDAO) {
-		int id = 2;
-		Optional<Student> student = studentDAO.findById(id);
-		if (student.isEmpty()) {
-			return;
-		}
-		System.out.println("Before update Student: " + student);
+        studentDAO.update(student.orElse(null));
 
-		System.out.println("Updating student with id: " + id);
-		student.get().setFirstName("Scooby");
+        System.out.println("Updated student: " + student);
+    }
 
-		studentDAO.update(student.orElse(null));
+    private void queryStudentsByLastName(StudentDAO studentDAO) {
+        var students = studentDAO.findByLastName("Doe");
 
-		System.out.println("Updated student: " + student);
-	}
+        for (Student s : students) {
+            System.out.println(s);
+        }
+    }
 
-	private void queryStudentsByLastName(StudentDAO studentDAO) {
-		var students = studentDAO.findByLastName("Doe");
+    private void queryAllStudents(StudentDAO studentDAO) {
+        var students = studentDAO.findAll();
 
-		for (Student s : students) {
-			System.out.println(s);
-		}
-	}
+        for (Student s : students) {
+            System.out.println(s);
+        }
+    }
 
-	private void queryAllStudents(StudentDAO studentDAO) {
-		var students = studentDAO.findAll();
+    private void createStudent(StudentDAO studentDAO) {
+        System.out.println("Create a new student object");
+        Student student = new Student("John", "Doe", "doejohn@test.com");
 
-		for (Student s : students) {
-			System.out.println(s);
-		}
-	}
+        studentDAO.save(student);
 
-	private void createStudent(StudentDAO studentDAO) {
-		System.out.println("Create a new student object");
-		Student student = new Student("John", "Doe", "doejohn@test.com");
+        System.out.println("Saving the student object");
 
-		studentDAO.save(student);
+        System.out.println("Student saved. Id: " + student.getId());
+    }
 
-		System.out.println("Saving the student object");
+    private void createMultipleStudents(StudentDAO studentDAO) {
+        System.out.println("Create multiple students");
+        Student student1 = new Student("Paul", "Doe", "doejohn@test.com");
+        Student student2 = new Student("Mary", "Public", "publicmary@test.com");
+        Student student3 = new Student("Bonita", "Applebum", "applebum@test.com");
 
-		System.out.println("Student saved. Id: " + student.getId());
-	}
+        studentDAO.save(student1);
+        studentDAO.save(student2);
+        studentDAO.save(student3);
+    }
 
-	private void createMultipleStudents(StudentDAO studentDAO) {
-		System.out.println("Create multiple students");
-		Student student1 = new Student("Paul", "Doe", "doejohn@test.com");
-		Student student2 = new Student("Mary", "Public", "publicmary@test.com");
-		Student student3 = new Student("Bonita", "Applebum", "applebum@test.com");
+    private void createAndRetrieveStudent(StudentDAO studentDAO) {
+        System.out.println("Create student object");
+        Student student = new Student("Dazzy", "Dougless", "dg@test.com");
 
-		studentDAO.save(student1);
-		studentDAO.save(student2);
-		studentDAO.save(student3);
-	}
+        System.out.println("Saving student info");
+        studentDAO.save(student);
 
-	private void createAndRetrieveStudent(StudentDAO studentDAO) {
-		System.out.println("Create student object");
-		Student student = new Student("Dazzy", "Dougless", "dg@test.com");
+        System.out.println("Retrieve new student: " + student.getId());
+        Optional<Student> retrievedStudent = studentDAO.findById(student.getId());
+        if (retrievedStudent.isEmpty()) {
+            return;
+        }
 
-		System.out.println("Saving student info");
-		studentDAO.save(student);
-
-		System.out.println("Retrieve new student: " + student.getId());
-		Optional<Student> retrievedStudent = studentDAO.findById(student.getId());
-		if (retrievedStudent.isEmpty()) {
-			return;
-		}
-
-		System.out.println("Returned student: " + retrievedStudent);
-	}
+        System.out.println("Returned student: " + retrievedStudent);
+    }
 }
