@@ -30,74 +30,74 @@ public class MyappApplication {
         SpringApplication.run(MyappApplication.class, args);
     }
 
-    //@Bean
-    //public JdbcUserDetailsManager userDetailsManager(DataSource dataSource) {
-    //    JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
-    //    // 1. Override the "Create User" query to convert boolean to smallint
-    //    // PostgreSQL doesn't support casting boolean to smallint directly.
-    //    manager.setCreateUserSql(
-    //            "insert into users (username, password, enabled) values (?,?, CASE WHEN ? THEN 1 ELSE 0 END)"
-    //    );
-    //
-    //    // 2. Override the "Load User" query if necessary
-    //    // This ensures that when Spring reads the smallint, it treats 1 as true.
-    //    manager.setUsersByUsernameQuery(
-    //            "select username, password, (enabled::int = 1) as enabled from users where username = ?"
-    //    );
-    //
-    //    return manager;
-    //}
-    //
-    //@Bean
-    //public PasswordEncoder passwordEncoder() {
-    //    return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    //}
-    //
-    //@Bean
-    //CommandLineRunner initAdmin(
-    //        JdbcUserDetailsManager userDetailsManager,
-    //        PasswordEncoder passwordEncoder) {
-    //    return args -> {
-    //
-    //        List<String> usernames = List.of("john", "marry", "tim", "kan");
-    //
-    //        for (String username : usernames) {
-    //            if (userDetailsManager.userExists(username)) {
-    //                continue;
-    //            }
-    //
-    //            UserBuilder user = User.builder().username(username);
-    //
-    //            // When explicitly using BCryptPasswordEncoder, we shouldn't append {bcrypt}
-    //            String password = passwordEncoder.encode("test123");
-    //
-    //            if (username.equals("john")) {
-    //                user
-    //                        .password(password)
-    //                        .roles("EMPLOYEE");
-    //
-    //            }
-    //            if (username.equals("marry")) {
-    //                user
-    //                        .password(password)
-    //                        .roles("EMPLOYEE", "MANAGER");
-    //            }
-    //            if (username.equals("tim")) {
-    //                user
-    //                        .password(password)
-    //                        .roles("EMPLOYEE", "MANAGER", "ADMIN");
-    //            }
-    //            if (username.equals("kan")) {
-    //                user
-    //                        .password(password)
-    //                        .roles("EMPLOYEE", "MANAGER", "ADMIN");
-    //            }
-    //
-    //            UserDetails builder = user.build();
-    //            userDetailsManager.createUser(builder);
-    //        }
-    //    };
-    //}
+    @Bean
+    public JdbcUserDetailsManager userDetailsManager(DataSource dataSource) {
+        JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
+        // 1. Override the "Create User" query to convert boolean to smallint
+        // PostgreSQL doesn't support casting boolean to smallint directly.
+        manager.setCreateUserSql(
+                "insert into users (username, password, enabled) values (?,?, CASE WHEN ? THEN 1 ELSE 0 END)"
+        );
+
+        // 2. Override the "Load User" query if necessary
+        // This ensures that when Spring reads the smallint, it treats 1 as true.
+        manager.setUsersByUsernameQuery(
+                "select username, password, (enabled::int = 1) as enabled from users where username = ?"
+        );
+
+        return manager;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+    @Bean
+    CommandLineRunner initAdmin(
+            JdbcUserDetailsManager userDetailsManager,
+            PasswordEncoder passwordEncoder) {
+        return args -> {
+
+            List<String> usernames = List.of("john", "marry", "tim", "kan");
+
+            for (String username : usernames) {
+                if (userDetailsManager.userExists(username)) {
+                    continue;
+                }
+
+                UserBuilder user = User.builder().username(username);
+
+                // When explicitly using BCryptPasswordEncoder, we shouldn't append {bcrypt}
+                String password = passwordEncoder.encode("test123");
+
+                if (username.equals("john")) {
+                    user
+                            .password(password)
+                            .roles("EMPLOYEE");
+
+                }
+                if (username.equals("marry")) {
+                    user
+                            .password(password)
+                            .roles("EMPLOYEE", "MANAGER");
+                }
+                if (username.equals("tim")) {
+                    user
+                            .password(password)
+                            .roles("EMPLOYEE", "MANAGER", "ADMIN");
+                }
+                if (username.equals("kan")) {
+                    user
+                            .password(password)
+                            .roles("EMPLOYEE", "MANAGER", "ADMIN");
+                }
+
+                UserDetails builder = user.build();
+                userDetailsManager.createUser(builder);
+            }
+        };
+    }
 
     @Bean
     public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {

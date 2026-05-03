@@ -17,6 +17,13 @@ import javax.sql.DataSource;
 
 @Configuration
 public class SecurityConfig {
+    //@Bean
+    //public UserDetailsManager userDetailsManager(DataSource dataSource) {
+    //    System.out.println("data source" + dataSource.toString());
+    //
+    //    return new JdbcUserDetailsManager(dataSource);
+    //}
+
     // spring security won't use the user/password configured in properties and will use this instead
     //@Bean
     //public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
@@ -59,10 +66,5 @@ public class SecurityConfig {
 
     // custom bean with jdbc instead of chain above
     // comment because i customized another bean in MyappApplication
-    @Bean
-    public UserDetailsManager userDetailsManager(DataSource dataSource) {
-        System.out.println("data source" + dataSource.toString());
 
-        return new JdbcUserDetailsManager(dataSource);
-    }
 }

@@ -28,7 +28,7 @@ INSERT INTO employees VALUES
 // create users
 CREATE TABLE users (
 username VARCHAR(50) PRIMARY KEY,
-password CHAR(70) DEFAULT NULL,
+password VARCHAR(70) DEFAULT NULL,
 enabled SMALLINT NOT NULL
 );
 
@@ -46,7 +46,7 @@ INSERT INTO users VALUES
 // create authorities
 CREATE TABLE authorities (
 username VARCHAR(50) NOT NULL,
-authority VARCHAR(70) NOT NULL,
+authority VARCHAR(50) NOT NULL,
 CONSTRAINT uq_authorities_username_authority UNIQUE (username, authority),
 CONSTRAINT authorities_ibfk FOREIGN KEY(username) REFERENCES users(username) ON DELETE CASCADE
 );
