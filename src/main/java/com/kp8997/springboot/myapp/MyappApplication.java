@@ -34,7 +34,13 @@ public class MyappApplication {
 			//updateStudent(studentDAO);
 			//deleteStudent(studentDAO);
 			//deleteAllStudents(studentDAO);
+
+			seedAuthoritiesUsers();
 		};
+	}
+
+	private void seedAuthoritiesUsers() {
+
 	}
 
 	private void deleteAllStudents(StudentDAO studentDAO) {

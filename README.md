@@ -2,7 +2,8 @@
 CREATE ROLE admin_spring WITH LOGIN SUPERUSER PASSWORD 'p@ssw0rd123';
 
 // create table for postgresql needed for this course
-CREATE TABLE students (id SERIAL NOT NULL PRIMARY KEY, first_name VARCHAR(45) DEFAULT NULL, last_name VARCHAR(45) DEFAULT NULL, email VARCHAR(45) DEFAULT NULL );
+CREATE TABLE students (id SERIAL NOT NULL PRIMARY KEY, first_name VARCHAR(45) DEFAULT NULL, last_name VARCHAR(45)
+DEFAULT NULL, email VARCHAR(45) DEFAULT NULL );
 
 // Create db for employee_directory
 // CREATE DATABASE employee_directory;
@@ -27,7 +28,7 @@ INSERT INTO employees VALUES
 // create users
 CREATE TABLE users (
 username VARCHAR(50) PRIMARY KEY,
-password VARCHAR(50) DEFAULT NULL,
+password CHAR(70) DEFAULT NULL,
 enabled SMALLINT NOT NULL
 );
 
@@ -37,10 +38,15 @@ INSERT INTO users VALUES
 ('marry', '{noop}test123', 1),
 ('tim', '{noop}test123', 1);
 
+INSERT INTO users VALUES
+('john','{bcrypt}$2a$10$qeS0HEh7urweMojsnwNAR.vcXJeXR1UcMRZ2WcGQl9YeuspUdgF.q',1),
+('marry','{bcrypt}$2a$10$qeS0HEh7urweMojsnwNAR.vcXJeXR1UcMRZ2WcGQl9YeuspUdgF.q',1),
+('tim','{bcrypt}$2a$10$qeS0HEh7urweMojsnwNAR.vcXJeXR1UcMRZ2WcGQl9YeuspUdgF.q',1);
+
 // create authorities
 CREATE TABLE authorities (
 username VARCHAR(50) NOT NULL,
-authority VARCHAR(50) NOT NULL,
+authority VARCHAR(70) NOT NULL,
 CONSTRAINT uq_authorities_username_authority UNIQUE (username, authority),
 CONSTRAINT authorities_ibfk FOREIGN KEY(username) REFERENCES users(username) ON DELETE CASCADE
 );
