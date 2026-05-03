@@ -25,14 +25,12 @@ INSERT INTO employees VALUES
 (5,'Juan','Vega','juan@luv2code.com');
 
 // for starter-security jdbc
-// create users
 CREATE TABLE users (
 username VARCHAR(50) PRIMARY KEY,
 password VARCHAR(70) DEFAULT NULL,
 enabled SMALLINT NOT NULL
 );
 
-// seed data
 INSERT INTO users VALUES
 ('john', '{noop}test123', 1),
 ('marry', '{noop}test123', 1),
@@ -43,7 +41,6 @@ INSERT INTO users VALUES
 ('marry','{bcrypt}$2a$10$qeS0HEh7urweMojsnwNAR.vcXJeXR1UcMRZ2WcGQl9YeuspUdgF.q',1),
 ('tim','{bcrypt}$2a$10$qeS0HEh7urweMojsnwNAR.vcXJeXR1UcMRZ2WcGQl9YeuspUdgF.q',1);
 
-// create authorities
 CREATE TABLE authorities (
 username VARCHAR(50) NOT NULL,
 authority VARCHAR(50) NOT NULL,
@@ -51,8 +48,40 @@ CONSTRAINT uq_authorities_username_authority UNIQUE (username, authority),
 CONSTRAINT authorities_ibfk FOREIGN KEY(username) REFERENCES users(username) ON DELETE CASCADE
 );
 
-// seed data
 INSERT INTO authorities VALUES
+('john', 'ROLE_EMPLOYEE'),
+('marry', 'ROLE_EMPLOYEE'),
+('marry', 'ROLE_MANAGER'),
+('tim', 'ROLE_EMPLOYEE'),
+('tim', 'ROLE_MANAGER'),
+('tim', 'ROLE_ADMIN');
+
+// ====================
+// customize table
+CREATE TABLE members (
+user_id VARCHAR(50) PRIMARY KEY,
+password VARCHAR(70) DEFAULT NULL,
+active SMALLINT NOT NULL
+);
+
+INSERT INTO members VALUES
+('john', '{noop}test123', 1),
+('marry', '{noop}test123', 1),
+('tim', '{noop}test123', 1);
+
+INSERT INTO members VALUES
+('john','{bcrypt}$2a$10$qeS0HEh7urweMojsnwNAR.vcXJeXR1UcMRZ2WcGQl9YeuspUdgF.q',1),
+('marry','{bcrypt}$2a$10$qeS0HEh7urweMojsnwNAR.vcXJeXR1UcMRZ2WcGQl9YeuspUdgF.q',1),
+('tim','{bcrypt}$2a$10$qeS0HEh7urweMojsnwNAR.vcXJeXR1UcMRZ2WcGQl9YeuspUdgF.q',1);
+
+CREATE TABLE roles (
+user_id VARCHAR(50) NOT NULL,
+role VARCHAR(50) NOT NULL,
+CONSTRAINT uq_roles_user_id_role UNIQUE (user_id, role),
+CONSTRAINT roles_ibfk FOREIGN KEY(user_id) REFERENCES members(user_id) ON DELETE CASCADE
+);
+
+INSERT INTO roles VALUES
 ('john', 'ROLE_EMPLOYEE'),
 ('marry', 'ROLE_EMPLOYEE'),
 ('marry', 'ROLE_MANAGER'),
