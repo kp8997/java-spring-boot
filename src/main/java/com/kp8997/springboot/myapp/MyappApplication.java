@@ -45,9 +45,6 @@ public class MyappApplication {
         //        "select username, password, (enabled::int = 1) as enabled from users where username = ?"
         //);
 
-
-
-
         // 2. Override the "Load User" query if necessary
         // This ensures that when Spring reads the smallint, it treats 1 as true.
         manager.setUsersByUsernameQuery(
