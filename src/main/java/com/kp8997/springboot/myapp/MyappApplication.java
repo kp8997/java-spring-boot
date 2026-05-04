@@ -46,14 +46,16 @@ public class MyappApplication {
         //);
 
 
-        manager.setCreateUserSql(
-                "insert into users (username, password, enabled) values (?,?, CASE WHEN ? THEN 1 ELSE 0 END)"
-        );
+
 
         // 2. Override the "Load User" query if necessary
         // This ensures that when Spring reads the smallint, it treats 1 as true.
         manager.setUsersByUsernameQuery(
-                "select username, password, (enabled::int = 1) as enabled from users where username = ?"
+                "select user_id, password, (active::int = 1) as enabled from members where user_id = ?"
+        );
+
+        manager.setAuthoritiesByUsernameQuery(
+                "select user_id, role from roles where user_id = ?"
         );
 
         return manager;
