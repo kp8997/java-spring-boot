@@ -47,6 +47,8 @@ public class SecurityConfig {
     //    return new InMemoryUserDetailsManager(join, marry, tim);
     //}
 
+    // custom bean with jdbc instead of chain above
+    // comment because i customized another bean in MyappApplication
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorizeRequests ->
@@ -99,7 +101,5 @@ public class SecurityConfig {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-    // custom bean with jdbc instead of chain above
-    // comment because i customized another bean in MyappApplication
 
 }
