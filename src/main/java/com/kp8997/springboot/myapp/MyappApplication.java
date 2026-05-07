@@ -1,6 +1,9 @@
 package com.kp8997.springboot.myapp;
 
+import com.kp8997.springboot.myapp.core.dao.AppDAO;
 import com.kp8997.springboot.myapp.core.dao.StudentDAO;
+import com.kp8997.springboot.myapp.core.entity.Instructor;
+import com.kp8997.springboot.myapp.core.entity.InstructorDetail;
 import com.kp8997.springboot.myapp.core.entity.Student;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -77,9 +80,10 @@ public class MyappApplication {
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
+    public CommandLineRunner commandLineRunner(StudentDAO studentDAO, AppDAO appDAO) {
         return r -> {
             System.out.println("Hello World");
+            createInstructor(appDAO);
 
             //createStudent(studentDAO);
             //createMultipleStudents(studentDAO);
@@ -90,6 +94,18 @@ public class MyappApplication {
             //deleteStudent(studentDAO);
             //deleteAllStudents(studentDAO);
         };
+    }
+
+    private void createInstructor(AppDAO appDAO) {
+        Instructor instructor = new Instructor("Kan", "Han", "kp@test.com");
+
+        InstructorDetail instructorDetail = new InstructorDetail("https://www.youtube.com/@kannnahan9120", "coding and gggggggg");
+        instructor.setInstructorDetail(instructorDetail);
+
+        // cascade.ALL include persist so the relational entity will be persisted too
+        System.out.println("Instructor created" + instructor);
+        appDAO.save(instructor);
+
     }
 
     //private void deleteAllStudents(StudentDAO studentDAO) {
