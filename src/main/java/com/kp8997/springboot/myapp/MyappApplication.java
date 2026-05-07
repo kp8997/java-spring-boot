@@ -101,9 +101,10 @@ public class MyappApplication {
     }
 
     private void deleteInstructorDetail(AppDAO appDAO) {
-        int id = 5;
+        int id = 6;
         System.out.println("Deleting instructor detail id: " + id);
         appDAO.deleteInstructorDetailById(id);
+        System.out.println("Deleted");
     }
 
     private void findInstructorDetail(AppDAO appDAO) {
