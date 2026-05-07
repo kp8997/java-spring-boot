@@ -88,3 +88,21 @@ INSERT INTO roles VALUES
 ('tim', 'ROLE_EMPLOYEE'),
 ('tim', 'ROLE_MANAGER'),
 ('tim', 'ROLE_ADMIN');
+
+
+==================== instructor ==========
+
+CREATE TABLE instructor_details (
+id SERIAL PRIMARY KEY,
+youtube_channel varchar(128) DEFAULT NULL,
+hobby varchar(45) DEFAULT NULL
+);
+
+CREATE TABLE instructors (
+id SERIAL PRIMARY KEY,—
+first_name varchar(45) DEFAULT NULL,
+last_name varchar(45) DEFAULT NULL,
+email varchar(45) DEFAULT NULL,
+instructor_detail_id int DEFAULT NULL,
+CONSTRAINT fk_detail FOREIGN KEY (instructor_detail_id) REFERENCES instructor_details (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
