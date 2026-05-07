@@ -85,6 +85,7 @@ public class MyappApplication {
             System.out.println("Hello World");
             //createInstructor(appDAO);
             findInstructor(appDAO);
+            //deleteInstructor(appDAO);
 
             //createStudent(studentDAO);
             //createMultipleStudents(studentDAO);
@@ -95,6 +96,15 @@ public class MyappApplication {
             //deleteStudent(studentDAO);
             //deleteAllStudents(studentDAO);
         };
+    }
+
+    private void deleteInstructor(AppDAO appDAO) {
+        int id = 1;
+        System.out.println();
+
+        appDAO.deleteInstructorById(id);
+
+        System.out.println("Deleted instructor by id: " + id);
     }
 
     private void findInstructor(AppDAO appDAO) {
