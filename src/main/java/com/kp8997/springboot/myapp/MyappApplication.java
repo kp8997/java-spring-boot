@@ -99,7 +99,7 @@ public class MyappApplication {
     }
 
     private void deleteInstructor(AppDAO appDAO) {
-        int id = 1;
+        int id = 4;
         System.out.println();
 
         appDAO.deleteInstructorById(id);
