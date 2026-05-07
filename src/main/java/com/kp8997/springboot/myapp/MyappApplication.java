@@ -86,6 +86,8 @@ public class MyappApplication {
             //createInstructor(appDAO);
             findInstructor(appDAO);
             //deleteInstructor(appDAO);
+            findInstructorDetail(appDAO);
+            //deleteInstructorDetail(appDAO);
 
             //createStudent(studentDAO);
             //createMultipleStudents(studentDAO);
@@ -96,6 +98,19 @@ public class MyappApplication {
             //deleteStudent(studentDAO);
             //deleteAllStudents(studentDAO);
         };
+    }
+
+    private void deleteInstructorDetail(AppDAO appDAO) {
+        int id = 5;
+        System.out.println("Deleting instructor detail id: " + id);
+        appDAO.deleteInstructorDetailById(id);
+    }
+
+    private void findInstructorDetail(AppDAO appDAO) {
+        int id = 1;
+        InstructorDetail instructorDetail = appDAO.findInstructorDetailById(id);
+        System.out.println("Instructor Detail with inverted direction: " + instructorDetail);
+        System.out.println("Instructor: " + instructorDetail.getInstructor());
     }
 
     private void deleteInstructor(AppDAO appDAO) {
