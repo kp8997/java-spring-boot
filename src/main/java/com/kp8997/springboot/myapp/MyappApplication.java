@@ -76,21 +76,21 @@ public class MyappApplication {
         };
     }
 
-    //@Bean
-    //public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
-    //    return r -> {
-    //        System.out.println("Hello World");
-    //
-    //        //createStudent(studentDAO);
-    //        //createMultipleStudents(studentDAO);
-    //        //createAndRetrieveStudent(studentDAO);
-    //        //queryAllStudents(studentDAO);
-    //        //queryStudentsByLastName(studentDAO);
-    //        //updateStudent(studentDAO);
-    //        //deleteStudent(studentDAO);
-    //        //deleteAllStudents(studentDAO);
-    //    };
-    //}
+    @Bean
+    public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
+        return r -> {
+            System.out.println("Hello World");
+
+            //createStudent(studentDAO);
+            //createMultipleStudents(studentDAO);
+            //createAndRetrieveStudent(studentDAO);
+            //queryAllStudents(studentDAO);
+            //queryStudentsByLastName(studentDAO);
+            //updateStudent(studentDAO);
+            //deleteStudent(studentDAO);
+            //deleteAllStudents(studentDAO);
+        };
+    }
 
     //private void deleteAllStudents(StudentDAO studentDAO) {
     //    System.out.println("Delete all students");
