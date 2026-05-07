@@ -83,7 +83,8 @@ public class MyappApplication {
     public CommandLineRunner commandLineRunner(StudentDAO studentDAO, AppDAO appDAO) {
         return r -> {
             System.out.println("Hello World");
-            createInstructor(appDAO);
+            //createInstructor(appDAO);
+            findInstructor(appDAO);
 
             //createStudent(studentDAO);
             //createMultipleStudents(studentDAO);
@@ -94,6 +95,15 @@ public class MyappApplication {
             //deleteStudent(studentDAO);
             //deleteAllStudents(studentDAO);
         };
+    }
+
+    private void findInstructor(AppDAO appDAO) {
+        int id = 1;
+        Instructor instructor = appDAO.findInstructorById(id);
+        System.out.println("Instructor: " + instructor);
+        // cascade.ALL include find so the relational entity will be found too
+
+        System.out.println("Instructor Detail: " + instructor.getInstructorDetail());
     }
 
     private void createInstructor(AppDAO appDAO) {

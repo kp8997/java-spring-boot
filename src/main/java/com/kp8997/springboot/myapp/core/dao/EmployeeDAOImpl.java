@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public class EmployeeDAOImpl implements  EmployeeDAO {
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     @Autowired
     public EmployeeDAOImpl(EntityManager entityManager) {
