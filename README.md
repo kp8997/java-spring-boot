@@ -106,3 +106,10 @@ email varchar(45) DEFAULT NULL,
 instructor_detail_id int DEFAULT NULL,
 CONSTRAINT fk_detail FOREIGN KEY (instructor_detail_id) REFERENCES instructor_details (id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
+
+CREATE TABLE courses (
+id SERIAL PRIMARY KEY,
+title varchar(128) DEFAULT NULL UNIQUE,
+instructor_id int DEFAULT NULL,
+CONSTRAINT fk_instructor FOREIGN KEY (instructor_id) REFERENCES instructors (id)
+);
