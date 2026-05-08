@@ -2,6 +2,7 @@ package com.kp8997.springboot.myapp;
 
 import com.kp8997.springboot.myapp.core.dao.AppDAO;
 import com.kp8997.springboot.myapp.core.dao.StudentDAO;
+import com.kp8997.springboot.myapp.core.entity.Course;
 import com.kp8997.springboot.myapp.core.entity.Instructor;
 import com.kp8997.springboot.myapp.core.entity.InstructorDetail;
 import com.kp8997.springboot.myapp.core.entity.Student;
@@ -89,6 +90,8 @@ public class MyappApplication {
             findInstructorDetail(appDAO);
             //deleteInstructorDetail(appDAO);
 
+            createInstructorWithCourses(appDAO);
+
             //createStudent(studentDAO);
             //createMultipleStudents(studentDAO);
             //createAndRetrieveStudent(studentDAO);
@@ -98,6 +101,20 @@ public class MyappApplication {
             //deleteStudent(studentDAO);
             //deleteAllStudents(studentDAO);
         };
+    }
+
+    private void createInstructorWithCourses(AppDAO appDAO) {
+        Instructor instructor = new Instructor("Jet", "Pan", "jp@test.com");
+
+        InstructorDetail instructorDetail = new InstructorDetail("https://www.youtube.com/@kannnahan9120", "coding and gggggggg");
+        instructor.setInstructorDetail(instructorDetail);
+
+        instructor.add(new Course("Martial Art Master"));
+        instructor.add(new Course("Master of Java"));
+
+        // cascade.ALL include persist so the relational entity will be persisted too
+        System.out.println("Instructor with COURSES created" + instructor);
+        appDAO.save(instructor);
     }
 
     private void deleteInstructorDetail(AppDAO appDAO) {

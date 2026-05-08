@@ -2,6 +2,9 @@ package com.kp8997.springboot.myapp.core.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "instructors")
 public class Instructor {
@@ -23,6 +26,13 @@ public class Instructor {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "instructor_detail_id")
     private InstructorDetail instructorDetail;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "instructor", cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.DETACH,
+            CascadeType.REFRESH})
+    private List<Course> courses;
 
     public Instructor(String firstName, String lastName, String email) {
         this.firstName = firstName;
@@ -73,6 +83,14 @@ public class Instructor {
         this.instructorDetail = instructorDetail;
     }
 
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
     @Override
     public String toString() {
         return "Instructor{" +
@@ -82,5 +100,17 @@ public class Instructor {
                 ", email='" + email + '\'' +
                 ", instructorDetail=" + instructorDetail +
                 '}';
+    }
+
+    // extra support methods
+
+    public void add(Course course) {
+        if (courses == null) {
+            courses = new ArrayList<>();
+        }
+
+        this.courses.add(course);
+
+        course.setInstructor(this);
     }
 }
