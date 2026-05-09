@@ -1,12 +1,17 @@
 package com.kp8997.springboot.myapp.core.dao;
 
+import com.kp8997.springboot.myapp.core.entity.Course;
 import com.kp8997.springboot.myapp.core.entity.Instructor;
 import com.kp8997.springboot.myapp.core.entity.InstructorDetail;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Repository
 public class AppDAOImpl implements AppDAO{
@@ -52,5 +57,14 @@ public class AppDAOImpl implements AppDAO{
 
         // like this
         //entityManager.flush();
+    }
+
+    @Override
+    public List<Course> findCourseByInstructorId(int id) {
+        //Query query = entityManager.createQuery("select c from Course c where c.instructor.id = ?");
+        // shorthand will be:
+        TypedQuery<Course> query = entityManager.createQuery("from Course where instructor.id = ?1", Course.class);
+        query.setParameter(1, id);
+        return query.getResultList();
     }
 }

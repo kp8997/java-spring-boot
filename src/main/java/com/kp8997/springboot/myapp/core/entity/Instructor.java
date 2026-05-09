@@ -27,6 +27,8 @@ public class Instructor {
     @JoinColumn(name = "instructor_detail_id")
     private InstructorDetail instructorDetail;
 
+    // fetch = FetchType.LAZY is default if doesn't specify
+    // change it into EAGER will cause the memory exhausted since it will init the list every time
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "instructor", cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE,

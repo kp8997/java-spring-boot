@@ -90,7 +90,9 @@ public class MyappApplication {
             findInstructorDetail(appDAO);
             //deleteInstructorDetail(appDAO);
 
-            createInstructorWithCourses(appDAO);
+            //createInstructorWithCourses(appDAO);
+            //findInstructorWithCourses(appDAO);
+            findInstructorWithCoursesLazy(appDAO);
 
             //createStudent(studentDAO);
             //createMultipleStudents(studentDAO);
@@ -101,6 +103,24 @@ public class MyappApplication {
             //deleteStudent(studentDAO);
             //deleteAllStudents(studentDAO);
         };
+    }
+
+    private void findInstructorWithCoursesLazy(AppDAO appDAO) {
+        int id = 9;
+        Instructor instructor = appDAO.findInstructorById(id);
+
+        System.out.println("Instructor: " + instructor);
+
+        instructor.setCourses(appDAO.findCourseByInstructorId(id));
+        System.out.println("Instructor with Courses: : " + instructor.getCourses());
+    }
+
+    private void findInstructorWithCourses(AppDAO appDAO) {
+        int id = 10;
+        Instructor instructor = appDAO.findInstructorById(id);
+
+        System.out.println("Instructor: " + instructor);
+        System.out.println("Courses attachment: " + instructor.getCourses());
     }
 
     private void createInstructorWithCourses(AppDAO appDAO) {
