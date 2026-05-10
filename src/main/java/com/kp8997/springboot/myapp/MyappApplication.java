@@ -93,6 +93,7 @@ public class MyappApplication {
             //createInstructorWithCourses(appDAO);
             //findInstructorWithCourses(appDAO);
             findInstructorWithCoursesLazy(appDAO);
+            findInstructorWithJoinFetch(appDAO);
 
             //createStudent(studentDAO);
             //createMultipleStudents(studentDAO);
@@ -103,6 +104,15 @@ public class MyappApplication {
             //deleteStudent(studentDAO);
             //deleteAllStudents(studentDAO);
         };
+    }
+
+    private void findInstructorWithJoinFetch(AppDAO appDAO) {
+        int id = 10;
+        Instructor instructor = appDAO.findInstructorByIdJoinFetch(id);
+
+        System.out.println("Instructor: " + instructor);
+        System.out.println("Courses join fetch: " + instructor.getCourses());
+        System.out.println("Instructor Detail: " + instructor.getInstructorDetail());
     }
 
     private void findInstructorWithCoursesLazy(AppDAO appDAO) {
