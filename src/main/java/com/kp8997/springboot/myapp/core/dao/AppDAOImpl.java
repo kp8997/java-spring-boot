@@ -56,6 +56,7 @@ public class AppDAOImpl implements AppDAO {
         entityManager.remove(instructorDetail);
 
         // like this
+        // but not really recommend do it since it breaks the nature of persistent context
         //entityManager.flush();
     }
 
