@@ -98,6 +98,7 @@ public class MyappApplication {
             findInstructorWithJoinFetch(appDAO);
             updateInstructor(appDAO);
             updateCourse(appDAO);
+            //deleteCourse(appDAO);
             //deleteInstructor(appDAO);
 
             //createStudent(studentDAO);
@@ -109,6 +110,13 @@ public class MyappApplication {
             //deleteStudent(studentDAO);
             //deleteAllStudents(studentDAO);
         };
+    }
+
+    private void deleteCourse(AppDAO appDAO) {
+        int id = 7;
+        appDAO.deleteCourseById(id);
+
+        System.out.println("Deleted the course with id " + id);
     }
 
     private void updateCourse(AppDAO appDAO) {
