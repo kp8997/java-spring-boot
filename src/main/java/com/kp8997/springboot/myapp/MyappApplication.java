@@ -98,7 +98,8 @@ public class MyappApplication {
             findInstructorWithJoinFetch(appDAO);
             updateInstructor(appDAO);
             updateCourse(appDAO);
-            
+            //deleteInstructor(appDAO);
+
             //createStudent(studentDAO);
             //createMultipleStudents(studentDAO);
             //createAndRetrieveStudent(studentDAO);
