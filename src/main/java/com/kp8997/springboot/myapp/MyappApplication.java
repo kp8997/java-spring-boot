@@ -19,8 +19,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
 import javax.sql.DataSource;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 // default, it will only look the main one com.kp8997.springboot.myapp in this case
 // can add more scan base packages in @SpringBootApplication
@@ -94,6 +96,7 @@ public class MyappApplication {
             //findInstructorWithCourses(appDAO);
             findInstructorWithCoursesLazy(appDAO);
             findInstructorWithJoinFetch(appDAO);
+            updateInstructor(appDAO);
 
             //createStudent(studentDAO);
             //createMultipleStudents(studentDAO);
@@ -104,6 +107,30 @@ public class MyappApplication {
             //deleteStudent(studentDAO);
             //deleteAllStudents(studentDAO);
         };
+    }
+
+    private static final SecureRandom rand = new SecureRandom();
+
+    private String generateRandomString(int length) {
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            char randomChar = (char) (rand.nextInt(26) + 'A');
+            sb.append(randomChar);
+        }
+        return sb.toString();
+    }
+
+    private void updateInstructor(AppDAO appDAO) {
+        int id = 10;
+        Instructor instructor = appDAO.findInstructorById(id);
+
+        System.out.println("Instructor id " + id);
+        String randomSuffix = generateRandomString(4);
+        System.out.println("Instructor random suffix " + randomSuffix);
+        instructor.setLastName("Johnathan " + randomSuffix);
+
+        appDAO.update(instructor);
+        System.out.println("Updated");
     }
 
     private void findInstructorWithJoinFetch(AppDAO appDAO) {
