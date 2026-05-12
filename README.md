@@ -113,3 +113,10 @@ title varchar(128) DEFAULT NULL UNIQUE,
 instructor_id int DEFAULT NULL,
 CONSTRAINT fk_instructor FOREIGN KEY (instructor_id) REFERENCES instructors (id)
 );
+
+CREATE TABLE reviews (
+id SERIAL PRIMARY KEY,
+comment varchar(256) DEFAULT NULL,
+course_id int DEFAULT NULL,
+CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES courses (id)
+);
