@@ -97,7 +97,8 @@ public class MyappApplication {
             findInstructorWithCoursesLazy(appDAO);
             findInstructorWithJoinFetch(appDAO);
             updateInstructor(appDAO);
-
+            updateCourse(appDAO);
+            
             //createStudent(studentDAO);
             //createMultipleStudents(studentDAO);
             //createAndRetrieveStudent(studentDAO);
@@ -107,6 +108,17 @@ public class MyappApplication {
             //deleteStudent(studentDAO);
             //deleteAllStudents(studentDAO);
         };
+    }
+
+    private void updateCourse(AppDAO appDAO) {
+        int id = 2;
+
+        Course course = appDAO.findCourseById(id);
+
+        course.setTitle("My new NextJs course " + generateRandomString(5));
+
+        appDAO.update(course);
+        System.out.println("Updated");
     }
 
     private static final SecureRandom rand = new SecureRandom();
