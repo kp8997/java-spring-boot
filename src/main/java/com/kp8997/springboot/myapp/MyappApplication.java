@@ -108,8 +108,20 @@ public class MyappApplication {
             //deleteCourse(appDAO);
             //deleteInstructor(appDAO);
 
-            createCourseAndReviews(appDAO);
+            //createCourseAndReviews(appDAO);
+            retrieveCourseAndReviews(appDAO);
         };
+    }
+
+    private void retrieveCourseAndReviews(AppDAO appDAO) {
+        int id = 11;
+
+        Course course = appDAO.findCourseAndReviewById(id);
+
+        List<Review> reviews = course.getReviews();
+
+        System.out.println("Course: " + course);
+        System.out.println("Reviews: " + reviews);
     }
 
     private void createCourseAndReviews(AppDAO appDAO) {
