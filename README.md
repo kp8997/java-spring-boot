@@ -120,3 +120,12 @@ comment varchar(256) DEFAULT NULL,
 course_id int DEFAULT NULL,
 CONSTRAINT fk_course FOREIGN KEY (course_id) REFERENCES courses (id)
 );
+
+CREATE TABLE courses_students (
+ course_id int NOT NULL,
+ student_id int NOT NULL,
+
+ PRIMARY KEY (course_id, student_id),
+ CONSTRAINT fk_courses_students_course FOREIGN KEY (course_id) REFERENCES courses (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+ CONSTRAINT fk_courses_students_student FOREIGN KEY (student_id) REFERENCES students (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
