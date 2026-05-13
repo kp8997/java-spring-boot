@@ -10,16 +10,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
-import javax.sql.DataSource;
 import java.security.SecureRandom;
 import java.util.List;
-import java.util.Optional;
-import java.util.Random;
 
 // default, it will only look the main one com.kp8997.springboot.myapp in this case
 // can add more scan base packages in @SpringBootApplication
