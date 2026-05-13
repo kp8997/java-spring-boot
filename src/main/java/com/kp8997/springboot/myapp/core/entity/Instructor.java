@@ -105,7 +105,6 @@ public class Instructor {
     }
 
     // extra support methods
-
     public void add(Course course) {
         if (courses == null) {
             courses = new ArrayList<>();
@@ -115,4 +114,5 @@ public class Instructor {
 
         course.setInstructor(this);
     }
+
 }
