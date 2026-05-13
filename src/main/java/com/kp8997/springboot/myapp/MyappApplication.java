@@ -106,7 +106,24 @@ public class MyappApplication {
             //createCourseAndReviews(appDAO);
             retrieveCourseAndReviews(appDAO);
             //deleteCourseAndReviews(appDAO);
+
+            createCourseAndStudents(appDAO);
         };
+    }
+
+    private void createCourseAndStudents(AppDAO appDAO) {
+        Course course = new Course("DEvop with OCI");
+
+        Student s1 = new Student("John", "Doe", "doejohn@test.");
+        Student s2 = new Student("Maradoni", "lavaka", "papa@test.com");
+
+        course.addStudents(s1);
+        course.addStudents(s2);
+
+        appDAO.save(course);
+
+        System.out.println("Created course" + course);
+        System.out.println("Students: " + course.getStudents());
     }
 
     private void deleteCourseAndReviews(AppDAO appDAO) {

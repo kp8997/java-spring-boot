@@ -2,6 +2,9 @@ package com.kp8997.springboot.myapp.core.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="students")
 public class Student {
@@ -18,6 +21,11 @@ public class Student {
 
     @Column(name="email")
     private String email;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            mappedBy = "students",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    private List<Course> courses;
 
     public Student() {
     }
@@ -60,6 +68,14 @@ public class Student {
         this.email = email;
     }
 
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -68,5 +84,14 @@ public class Student {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    // extra method
+    void addCourse(Course course) {
+        if (courses == null) {
+            courses = new ArrayList<>();
+        }
+        courses.add(course);
+        course.addStudents(this);
     }
 }
