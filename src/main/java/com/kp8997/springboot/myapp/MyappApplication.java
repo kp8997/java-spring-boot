@@ -110,7 +110,16 @@ public class MyappApplication {
 
             //createCourseAndReviews(appDAO);
             retrieveCourseAndReviews(appDAO);
+            //deleteCourseAndReviews(appDAO);
         };
+    }
+
+    private void deleteCourseAndReviews(AppDAO appDAO) {
+        int id = 8;
+
+        appDAO.deleteCourseById(id);
+
+        System.out.println("Delete the id: " + id);
     }
 
     private void retrieveCourseAndReviews(AppDAO appDAO) {
