@@ -104,14 +104,24 @@ public class MyappApplication {
             //deleteInstructor(appDAO);
 
             //createCourseAndReviews(appDAO);
-            retrieveCourseAndReviews(appDAO);
+            //retrieveCourseAndReviews(appDAO);
             //deleteCourseAndReviews(appDAO);
 
             //createCourseAndStudents(appDAO);
             findCourseAndStudents(appDAO);
-            findStudentAndCourses(appDAO);
-            addMoreCoursesForStudent(appDAO);
+            //findStudentAndCourses(appDAO);
+            //addMoreCoursesForStudent(appDAO);
+            //deleteCourse(appDAO);
+            //deleteStudent(appDAO);
         };
+    }
+
+    private void deleteStudent(AppDAO appDAO) {
+        int studentId = 160;
+
+        appDAO.deleteStudentById(studentId);
+
+        System.out.println("Deleted student with id " + studentId);
     }
 
     private void addMoreCoursesForStudent(AppDAO appDAO) {
@@ -141,7 +151,7 @@ public class MyappApplication {
     }
 
     private void findCourseAndStudents(AppDAO appDAO) {
-        int id = 14;
+        int id = 24;
 
         Course course = appDAO.findCourseAndStudentsById(id);
 
@@ -198,7 +208,7 @@ public class MyappApplication {
     }
 
     private void deleteCourse(AppDAO appDAO) {
-        int id = 7;
+        int id = 14;
         appDAO.deleteCourseById(id);
 
         System.out.println("Deleted the course with id " + id);

@@ -153,4 +153,25 @@ public class AppDAOImpl implements AppDAO {
     public void update(Student student) {
         entityManager.merge(student);
     }
+
+    @Override
+    @Transactional
+    public void deleteStudentById(int id) {
+        Student student = entityManager.find(Student.class, id);
+        if (student != null) {
+
+            List<Course> courses = student.getCourses();
+            for (Course c : courses) {
+                // the reason why we have to do it because:
+                // the inverse side has to manual control the 2 ways relationship
+                // so the hibernate is able to trigger to delete properly in db (delete the join table and student table)
+                // similar pattern for other relationship that has the inverse side that do the same thing
+                // we also delete the join table so we can use .remove() here
+                // for the case with courses and instructor
+                // we only want to delete courses and keep the instructor
+                c.getStudents().remove(student);
+            }
+            entityManager.remove(student);
+        }
+    }
 }
