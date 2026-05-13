@@ -110,7 +110,25 @@ public class MyappApplication {
             //createCourseAndStudents(appDAO);
             findCourseAndStudents(appDAO);
             findStudentAndCourses(appDAO);
+            addMoreCoursesForStudent(appDAO);
         };
+    }
+
+    private void addMoreCoursesForStudent(AppDAO appDAO) {
+        int studentId = 159;
+
+        Student student = appDAO.findStudentAndCoursesById(studentId);
+
+        Course course1 = new Course("Oracle Hardware + networking " + generateRandomString(5));
+        Course course2 = new Course("Oracle Hardware + networking " + generateRandomString(5));
+
+        student.addCourse(course1);
+        student.addCourse(course2);
+
+        appDAO.update(student);
+
+        System.out.println("Student " + student);
+        System.out.println("Associated Course " + student.getCourses());
     }
 
     private void findStudentAndCourses(AppDAO appDAO) {
@@ -134,7 +152,7 @@ public class MyappApplication {
     }
 
     private void createCourseAndStudents(AppDAO appDAO) {
-        Course course = new Course("DEvop with OCI");
+        Course course = new Course("DEvop with OCI" + generateRandomString(4));
 
         Student s1 = new Student("John", "Doe", "doejohn@test.");
         Student s2 = new Student("Maradoni", "lavaka", "papa@test.com");
