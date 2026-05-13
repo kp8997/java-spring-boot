@@ -2,10 +2,7 @@ package com.kp8997.springboot.myapp;
 
 import com.kp8997.springboot.myapp.core.dao.AppDAO;
 import com.kp8997.springboot.myapp.core.dao.StudentDAO;
-import com.kp8997.springboot.myapp.core.entity.Course;
-import com.kp8997.springboot.myapp.core.entity.Instructor;
-import com.kp8997.springboot.myapp.core.entity.InstructorDetail;
-import com.kp8997.springboot.myapp.core.entity.Student;
+import com.kp8997.springboot.myapp.core.entity.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -86,6 +83,16 @@ public class MyappApplication {
     public CommandLineRunner commandLineRunner(StudentDAO studentDAO, AppDAO appDAO) {
         return r -> {
             System.out.println("Hello World");
+
+            //createStudent(studentDAO);
+            //createMultipleStudents(studentDAO);
+            //createAndRetrieveStudent(studentDAO);
+            //queryAllStudents(studentDAO);
+            //queryStudentsByLastName(studentDAO);
+            //updateStudent(studentDAO);
+            //deleteStudent(studentDAO);
+            //deleteAllStudents(studentDAO);
+
             //createInstructor(appDAO);
             findInstructor(appDAO);
             //deleteInstructor(appDAO);
@@ -101,15 +108,20 @@ public class MyappApplication {
             //deleteCourse(appDAO);
             //deleteInstructor(appDAO);
 
-            //createStudent(studentDAO);
-            //createMultipleStudents(studentDAO);
-            //createAndRetrieveStudent(studentDAO);
-            //queryAllStudents(studentDAO);
-            //queryStudentsByLastName(studentDAO);
-            //updateStudent(studentDAO);
-            //deleteStudent(studentDAO);
-            //deleteAllStudents(studentDAO);
+            createCourseAndReviews(appDAO);
         };
+    }
+
+    private void createCourseAndReviews(AppDAO appDAO) {
+        Course course = new Course("React and Nextjs 123");
+
+        course.addReview(new Review("Wow, it looks pretty good"));
+        course.addReview(new Review("quite good"));
+        course.addReview(new Review("Hard to trace"));
+        course.addReview(new Review("Hard to SEO of Google"));
+
+        appDAO.save(course);
+        System.out.println("Course created with reviews");
     }
 
     private void deleteCourse(AppDAO appDAO) {

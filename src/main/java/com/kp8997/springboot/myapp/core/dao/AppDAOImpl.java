@@ -111,4 +111,10 @@ public class AppDAOImpl implements AppDAO {
     public void deleteCourseById(int id) {
         entityManager.remove(entityManager.find(Course.class, id));
     }
+
+    @Override
+    @Transactional
+    public void save(Course course) {
+        entityManager.persist(course);
+    }
 }
