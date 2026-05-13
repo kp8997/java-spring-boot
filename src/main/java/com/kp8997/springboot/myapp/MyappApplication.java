@@ -107,8 +107,30 @@ public class MyappApplication {
             retrieveCourseAndReviews(appDAO);
             //deleteCourseAndReviews(appDAO);
 
-            createCourseAndStudents(appDAO);
+            //createCourseAndStudents(appDAO);
+            findCourseAndStudents(appDAO);
+            findStudentAndCourses(appDAO);
         };
+    }
+
+    private void findStudentAndCourses(AppDAO appDAO) {
+        int id = 159;
+
+        Student student = appDAO.findStudentAndCoursesById(id);
+
+        System.out.println("Loaded student " + student);
+        System.out.println("Loaded courses " + student.getCourses());
+    }
+
+    private void findCourseAndStudents(AppDAO appDAO) {
+        int id = 14;
+
+        Course course = appDAO.findCourseAndStudentsById(id);
+
+        System.out.println("Loaded course " + course);
+
+        System.out.println("Loaded students " + course.getStudents());
+
     }
 
     private void createCourseAndStudents(AppDAO appDAO) {

@@ -3,6 +3,7 @@ package com.kp8997.springboot.myapp.core.dao;
 import com.kp8997.springboot.myapp.core.entity.Course;
 import com.kp8997.springboot.myapp.core.entity.Instructor;
 import com.kp8997.springboot.myapp.core.entity.InstructorDetail;
+import com.kp8997.springboot.myapp.core.entity.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
@@ -121,6 +122,27 @@ public class AppDAOImpl implements AppDAO {
     @Override
     public Course findCourseAndReviewById(int id) {
         TypedQuery<Course> query = entityManager.createQuery("from Course c JOIN FETCH c.reviews where c.id = :id", Course.class);
+        query.setParameter("id", id);
+
+        return query.getSingleResult();
+    }
+
+    @Override
+    public Course findCourseAndStudentsById(int id) {
+        TypedQuery<Course> query = entityManager.createQuery("select c from Course c JOIN FETCH c.students where c.id = :id",
+                Course.class);
+
+        query.setParameter("id", id);
+
+        return query.getSingleResult();
+    }
+
+    @Override
+    public Student findStudentAndCoursesById(int id) {
+
+        TypedQuery<Student> query = entityManager.createQuery("select s from Student s JOIN FETCH s.courses where s.id = :id",
+                Student.class);
+
         query.setParameter("id", id);
 
         return query.getSingleResult();
