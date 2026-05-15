@@ -13,3 +13,6 @@ Type of Advice
     After throwing
     After finally
     Around
+
+AspectJ and Spring boot aop
+Spring Boot AOP is small scope aspectJ. so it is more restrictive
