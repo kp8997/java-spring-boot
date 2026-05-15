@@ -16,3 +16,29 @@ Type of Advice
 
 AspectJ and Spring boot aop
 Spring Boot AOP is small scope aspectJ. so it is more restrictive
+
+take this as examples for aop
+
+public class UserAccount {
+private String status;
+
+    // Constructor Join Point
+    public UserAccount() {
+        this.status = "NEW";
+    }
+}
+
+@Aspect
+public class AuditAspect {
+// 1. Pointcut targeting a Constructor Join Point
+@Before("execution(com.khang.UserAccount.new())")
+public void logNewUser() {
+System.out.println("ADVICE: A new UserAccount object is being initialized.");
+}
+
+    // 2. Pointcut targeting a Field Join Point (Set/Update)
+    @Before("set(String com.khang.UserAccount.status)")
+    public void logStatusChange() {
+        System.out.println("ADVICE: The 'status' field is about to be modified.");
+    }
+}
