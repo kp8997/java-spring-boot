@@ -1,5 +1,6 @@
 package com.kp8997.springboot.myapp;
 
+import com.kp8997.springboot.myapp.core.dao.AccountDAO;
 import com.kp8997.springboot.myapp.core.dao.AppDAO;
 import com.kp8997.springboot.myapp.core.dao.StudentDAO;
 import com.kp8997.springboot.myapp.core.entity.*;
@@ -75,7 +76,7 @@ public class MyappApplication {
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner(StudentDAO studentDAO, AppDAO appDAO) {
+    public CommandLineRunner commandLineRunner(StudentDAO studentDAO, AppDAO appDAO, AccountDAO accountDAO) {
         return r -> {
             System.out.println("Hello World");
 
@@ -113,7 +114,13 @@ public class MyappApplication {
             //addMoreCoursesForStudent(appDAO);
             //deleteCourse(appDAO);
             //deleteStudent(appDAO);
+
+            doStuffTheBeforeAdvice(accountDAO);
         };
+    }
+
+    private void doStuffTheBeforeAdvice(AccountDAO accountDAO) {
+        accountDAO.addAccount();
     }
 
     private void deleteStudent(AppDAO appDAO) {
