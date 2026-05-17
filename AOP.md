@@ -36,9 +36,10 @@ public void logNewUser() {
 System.out.println("ADVICE: A new UserAccount object is being initialized.");
 }
 
-    // 2. Pointcut targeting a Field Join Point (Set/Update)
-    @Before("set(String com.khang.UserAccount.status)")
-    public void logStatusChange() {
-        System.out.println("ADVICE: The 'status' field is about to be modified.");
-    }
+// 2. Pointcut targeting a Field Join Point (Set/Update)
+@Before("set(String com.khang.UserAccount.status)")
+public void logStatusChange() {
+System.out.println("ADVICE: The 'status' field is about to be modified.");
 }
+}
+
