@@ -126,7 +126,7 @@ public class MyappApplication {
     private void doStuffTheBeforeAdvice(AccountDAO accountDAO, MembershipDAO membershipDAO) {
         accountDAO.addAccount();
 
-        System.out.println("Re-execute addAccount");
+        //System.out.println("Re-execute addAccount");
         accountDAO.addAccount();
 
         membershipDAO.addAccount();
