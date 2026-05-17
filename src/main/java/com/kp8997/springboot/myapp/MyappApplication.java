@@ -2,6 +2,7 @@ package com.kp8997.springboot.myapp;
 
 import com.kp8997.springboot.myapp.core.dao.AccountDAO;
 import com.kp8997.springboot.myapp.core.dao.AppDAO;
+import com.kp8997.springboot.myapp.core.dao.MembershipDAO;
 import com.kp8997.springboot.myapp.core.dao.StudentDAO;
 import com.kp8997.springboot.myapp.core.entity.*;
 import org.springframework.boot.CommandLineRunner;
@@ -76,7 +77,10 @@ public class MyappApplication {
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner(StudentDAO studentDAO, AppDAO appDAO, AccountDAO accountDAO) {
+    public CommandLineRunner commandLineRunner(StudentDAO studentDAO,
+                                               AppDAO appDAO,
+                                               AccountDAO accountDAO,
+                                               MembershipDAO membershipDAO) {
         return r -> {
             System.out.println("Hello World");
 
@@ -115,15 +119,17 @@ public class MyappApplication {
             //deleteCourse(appDAO);
             //deleteStudent(appDAO);
 
-            doStuffTheBeforeAdvice(accountDAO);
+            doStuffTheBeforeAdvice(accountDAO, membershipDAO);
         };
     }
 
-    private void doStuffTheBeforeAdvice(AccountDAO accountDAO) {
+    private void doStuffTheBeforeAdvice(AccountDAO accountDAO, MembershipDAO membershipDAO) {
         accountDAO.addAccount();
 
         System.out.println("Re-execute addAccount");
         accountDAO.addAccount();
+
+        membershipDAO.addAccount();
     }
 
     private void deleteStudent(AppDAO appDAO) {

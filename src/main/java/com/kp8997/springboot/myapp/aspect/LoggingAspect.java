@@ -9,6 +9,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoggingAspect {
 
+    //@Before("execution(public void addAccount())")
+    //public void beforeAddAccountAdvice() {
+    //    System.out.println("\n=======> Executing @Before the advice on addAccount");
+    //}
+
     @Before("execution(public void addAccount())")
     public void beforeAddAccountAdvice() {
         System.out.println("\n=======> Executing @Before the advice on addAccount");
@@ -17,5 +22,10 @@ public class LoggingAspect {
     @AfterReturning("execution(public void addAccount())")
     public void afterAddAccountAdvice() {
         System.out.println("\n=======> Executing @AfterReturn the advice on addAccount");
+    }
+
+    @Before("execution(public void updateAccount())")
+    public void beforeUpdateAccountAdvice() {
+        System.out.println("\n=======> Executing @Before the advice on updateAccount");
     }
 }
