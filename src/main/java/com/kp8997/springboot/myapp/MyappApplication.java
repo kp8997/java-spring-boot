@@ -121,6 +121,9 @@ public class MyappApplication {
 
     private void doStuffTheBeforeAdvice(AccountDAO accountDAO) {
         accountDAO.addAccount();
+
+        System.out.println("Re-execute addAccount");
+        accountDAO.addAccount();
     }
 
     private void deleteStudent(AppDAO appDAO) {
