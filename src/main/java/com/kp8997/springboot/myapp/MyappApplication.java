@@ -130,6 +130,8 @@ public class MyappApplication {
         accountDAO.addAccount();
 
         membershipDAO.addAccount();
+
+        //membershipDAO.addMemberAndReturnBoolean();
     }
 
     private void deleteStudent(AppDAO appDAO) {
