@@ -2,10 +2,12 @@ package com.kp8997.springboot.myapp.aspect;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.Order;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
+@Order(2)
 public class ApiAnalyticsAspect {
     // Replace 'AopExpressions' with the actual class name where your pointcut lives
     @Before("com.kp8997.springboot.myapp.aspect.AopExpressions.allMethodsExceptGetterSetter()")
