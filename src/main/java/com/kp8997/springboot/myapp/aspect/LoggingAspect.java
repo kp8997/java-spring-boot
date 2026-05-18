@@ -48,7 +48,8 @@ public class LoggingAspect {
     // try to narrow the broad scope for only this package project
 
     @Pointcut("execution(* com.kp8997.springboot.myapp.core.dao.AccountDAO.add*(..))")
-    private void addMethodsPointcut() {};
+    private void addMethodsPointcut() {
+    }
 
 
     @Before("addMethodsPointcut()")
@@ -61,8 +62,17 @@ public class LoggingAspect {
         System.out.println("\n=======> Executing @AfterReturn the advice on any add* with any return type with Account param with FLAG");
     }
 
-    @Before("execution(public void updateAccount())")
-    public void beforeUpdateAccountAdvice() {
-        System.out.println("\n=======> Executing @Before the advice on updateAccount");
+    @Pointcut("execution(* com.kp8997.springboot.myapp.core.dao.*.*(..))")
+    private void everyMethodsOfPackage() {
     }
+
+    @Before("everyMethodsOfPackage()")
+    private void doEveryMethodsOfPackage() {
+        System.out.println("\n=======> Executing @Before the advice on any methods in doEveryMethodsOfPackage");
+    }
+
+    //@Before("execution(public void updateAccount())")
+    //public void beforeUpdateAccountAdvice() {
+    //    System.out.println("\n=======> Executing @Before the advice on updateAccount");
+    //}
 }

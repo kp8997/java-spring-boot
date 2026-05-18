@@ -135,6 +135,14 @@ public class MyappApplication {
         accountDAO.addAccount(new Account("kp@test.com", "4"));
 
         accountDAO.addAccount(new Account("kp@test.com", "5"), true);
+
+        // calling for pointcut combination
+
+        accountDAO.setName("Jonathan");
+        accountDAO.getName();
+        accountDAO.setServiceCode("12345");
+        accountDAO.getServiceCode();
+        accountDAO.doWork();
     }
 
     private void deleteStudent(AppDAO appDAO) {
