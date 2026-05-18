@@ -62,11 +62,21 @@ public class LoggingAspect {
         System.out.println("\n=======> Executing @AfterReturn the advice on any add* with any return type with Account param with FLAG");
     }
 
+
+    @Pointcut("execution(* com.kp8997.springboot.myapp.core.dao.*.get*(..))")
+    private void getMethodsPointcut() {}
+
+    @Pointcut("execution(* com.kp8997.springboot.myapp.core.dao.*.set*(..))")
+    private void setMethodsPointcut() {}
+
     @Pointcut("execution(* com.kp8997.springboot.myapp.core.dao.*.*(..))")
-    private void everyMethodsOfPackage() {
+    private void everyMethodsOfPackagePointcut() {
     }
 
-    @Before("everyMethodsOfPackage()")
+    @Pointcut("everyMethodsOfPackagePointcut() && !(getMethodsPointcut() || setMethodsPointcut())")
+    private void allMethodsExceptGetterSetter() {}
+
+    @Before("allMethodsExceptGetterSetter()")
     private void doEveryMethodsOfPackage() {
         System.out.println("\n=======> Executing @Before the advice on any methods in doEveryMethodsOfPackage");
     }
