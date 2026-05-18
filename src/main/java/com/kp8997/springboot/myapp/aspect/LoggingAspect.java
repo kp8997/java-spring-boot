@@ -14,7 +14,8 @@ public class LoggingAspect {
     //    System.out.println("\n=======> Executing @Before the advice on addAccount");
     //}
 
-    @Before("execution(public void addAccount())")
+    //@Before("execution(public void addAccount())")
+    @Before("execution(public void com.kp8997.springboot.myapp.core.dao.AccountDAO.addAccount())")
     public void beforeAddAccountAdvice() {
         System.out.println("\n=======> Executing @Before the advice on addAccount");
     }
