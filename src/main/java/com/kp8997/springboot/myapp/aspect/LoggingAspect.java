@@ -30,9 +30,24 @@ public class LoggingAspect {
         System.out.println("\n=======> Executing @Before the advice on any add* with any return type");
     }
 
-    @Before("execution(* add*(com.kp8997.springboot.myapp.core.entity.Account))")
-    public void beforeReturnAnyAddAdviceWithParam() {
-        System.out.println("\n=======> Executing @Before the advice on any add* with any return type with Account param");
+    //@Before("execution(* add*(com.kp8997.springboot.myapp.core.entity.Account))")
+    //public void beforeReturnAnyAddAdviceWithParam() {
+    //    System.out.println("\n=======> Executing @Before the advice on any add* with any return type with Account param");
+    //}
+
+    // .. can be 0 or any params in this case, it will match addAccount(Account) too
+    //@Before("execution(* add*(com.kp8997.springboot.myapp.core.entity.Account,..))")
+    //public void beforeReturnAnyAddAdviceWithParams() {
+    //    System.out.println("\n=======> Executing @Before the advice on any add* with any return type with Account param with FLAG");
+    //}
+
+    // this will cause error on intellij ultimate version, because of conflict bean of jmx
+    // fix from  @Before("execution(* add*(..))")
+    // to  @Before("execution(* add*(..))")
+    // try to narrow the broad scope for only this package project
+    @Before("execution(* com.kp8997.springboot.myapp.core.dao.AccountDAO.add*(..))")
+    public void beforeReturnAnyAddAdviceWithParams() {
+        System.out.println("\n=======> Executing @Before the advice on any add* with any return type with Account param with FLAG");
     }
 
     @AfterReturning("execution(public void addAccount())")

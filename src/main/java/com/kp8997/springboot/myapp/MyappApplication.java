@@ -133,6 +133,8 @@ public class MyappApplication {
         membershipDAO.addMemberAndReturnBoolean();
 
         accountDAO.addAccount(new Account("kp@test.com", "4"));
+
+        accountDAO.addAccount(new Account("kp@test.com", "5"), true);
     }
 
     private void deleteStudent(AppDAO appDAO) {

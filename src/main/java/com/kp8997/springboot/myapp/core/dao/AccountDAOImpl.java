@@ -14,4 +14,9 @@ public class AccountDAOImpl implements AccountDAO{
     public void addAccount(Account account) {
         System.out.println(getClass() + "Doing my db work: adding an account with PARAM");
     }
+
+    @Override
+    public void addAccount(Account account, boolean flag) {
+        System.out.println(getClass() + "Doing my db work: adding an account with PARAMS FLAG");
+    }
 }
