@@ -126,12 +126,13 @@ public class MyappApplication {
     private void doStuffTheBeforeAdvice(AccountDAO accountDAO, MembershipDAO membershipDAO) {
         accountDAO.addAccount();
 
-        //System.out.println("Re-execute addAccount");
         accountDAO.addAccount();
 
         membershipDAO.addAccount();
 
-        //membershipDAO.addMemberAndReturnBoolean();
+        membershipDAO.addMemberAndReturnBoolean();
+
+        accountDAO.addAccount(new Account("kp@test.com", "4"));
     }
 
     private void deleteStudent(AppDAO appDAO) {

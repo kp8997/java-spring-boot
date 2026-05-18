@@ -14,12 +14,25 @@ public class LoggingAspect {
     //    System.out.println("\n=======> Executing @Before the advice on addAccount");
     //}
 
-    //@Before("execution(public void addAccount())")
+    @Before("execution(public void addAccount())")
     //@Before("execution(public void com.kp8997.springboot.myapp.core.dao.AccountDAO.addAccount())")
-    //@Before("execution(public void add*())")
-    @Before("execution(* add*())")
     public void beforeAddAccountAdvice() {
         System.out.println("\n=======> Executing @Before the advice on addAccount");
+    }
+
+    @Before("execution(public void add*())")
+    public void beforeAnyAddAdvice() {
+        System.out.println("\n=======> Executing @Before the advice on any add*");
+    }
+
+    @Before("execution(* add*())")
+    public void beforeReturnAnyAddAdvice() {
+        System.out.println("\n=======> Executing @Before the advice on any add* with any return type");
+    }
+
+    @Before("execution(* add*(com.kp8997.springboot.myapp.core.entity.Account))")
+    public void beforeReturnAnyAddAdviceWithParam() {
+        System.out.println("\n=======> Executing @Before the advice on any add* with any return type with Account param");
     }
 
     @AfterReturning("execution(public void addAccount())")
