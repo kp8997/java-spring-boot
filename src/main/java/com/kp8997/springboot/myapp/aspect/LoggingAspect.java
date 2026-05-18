@@ -62,7 +62,6 @@ public class LoggingAspect {
         System.out.println("\n=======> Executing @AfterReturn the advice on any add* with any return type with Account param with FLAG");
     }
 
-
     @Pointcut("execution(* com.kp8997.springboot.myapp.core.dao.*.get*(..))")
     private void getMethodsPointcut() {}
 
