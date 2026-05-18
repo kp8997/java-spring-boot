@@ -3,6 +3,7 @@ package com.kp8997.springboot.myapp.aspect;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -45,14 +46,19 @@ public class LoggingAspect {
     // fix from  @Before("execution(* add*(..))")
     // to  @Before("execution(* add*(..))")
     // try to narrow the broad scope for only this package project
-    @Before("execution(* com.kp8997.springboot.myapp.core.dao.AccountDAO.add*(..))")
+
+    @Pointcut("execution(* com.kp8997.springboot.myapp.core.dao.AccountDAO.add*(..))")
+    private void addMethodsPointcut() {};
+
+
+    @Before("addMethodsPointcut()")
     public void beforeReturnAnyAddAdviceWithParams() {
         System.out.println("\n=======> Executing @Before the advice on any add* with any return type with Account param with FLAG");
     }
 
-    @AfterReturning("execution(public void addAccount())")
+    @AfterReturning("addMethodsPointcut()")
     public void afterAddAccountAdvice() {
-        System.out.println("\n=======> Executing @AfterReturn the advice on addAccount");
+        System.out.println("\n=======> Executing @AfterReturn the advice on any add* with any return type with Account param with FLAG");
     }
 
     @Before("execution(public void updateAccount())")
