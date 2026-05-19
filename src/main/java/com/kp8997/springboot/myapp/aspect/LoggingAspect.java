@@ -2,18 +2,18 @@ package com.kp8997.springboot.myapp.aspect;
 
 import com.kp8997.springboot.myapp.core.entity.Account;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.junit.jupiter.api.Order;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Aspect
 @Component
 @Order(3)
 public class LoggingAspect {
+
 
     //@Before("execution(public void addAccount())")
     //public void beforeAddAccountAdvice() {
@@ -86,4 +86,40 @@ public class LoggingAspect {
     //public void beforeUpdateAccountAdvice() {
     //    System.out.println("\n=======> Executing @Before the advice on updateAccount");
     //}
+
+
+
+    @AfterReturning(pointcut = "execution(* com.kp8997.springboot.myapp.core.dao.AccountDAO.findAccount(..))", returning = "result")
+    public void afterReturningFindAccountAdvice(JoinPoint joinPoint, List<Account> result) {
+        System.out.println("\n=======> Executing @AfterReturning the advice on findAccount method");
+
+        var method = joinPoint.getSignature().toShortString();
+
+        System.out.println("Method: " + method);
+
+        System.out.println("result: " + result);
+
+        // modify return data
+
+        convertAccountNameToUpperCase(result);
+    }
+
+    private void convertAccountNameToUpperCase(List<Account> result) {
+        for (Account account : result) {
+            account.setName(account.getName().toUpperCase());
+        }
+    }
+
+    @AfterThrowing(
+            pointcut = "execution(* com.kp8997.springboot.myapp.core.dao.AccountDAO.findAccount(..))",
+            throwing = "exception")
+    public void afterThrowingFindAccountAdvice(JoinPoint joinPoint, RuntimeException exception) {
+        System.out.println("\n=======> Executing @AfterThrowing the advice on findAccount method");
+
+        var method = joinPoint.getSignature().toShortString();
+
+        System.out.println("Method: " + method);
+
+        System.out.println("exception: " + exception);
+    }
 }

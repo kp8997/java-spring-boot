@@ -26,6 +26,8 @@ import java.util.List;
 @SpringBootApplication
 public class MyappApplication {
 
+    private static final SecureRandom rand = new SecureRandom();
+
     static void main(String[] args) {
         SpringApplication.run(MyappApplication.class, args);
     }
@@ -120,7 +122,33 @@ public class MyappApplication {
             //deleteStudent(appDAO);
 
             doStuffTheBeforeAdvice(accountDAO, membershipDAO);
+            doStuffTheAfterReturningAdvice(accountDAO, membershipDAO);
+            doStuffTheAfterThrowingAdvice(accountDAO, membershipDAO);
         };
+    }
+
+    private void doStuffTheAfterThrowingAdvice(AccountDAO accountDAO, MembershipDAO membershipDAO) {
+        System.out.println("\n\n AfterReturning Advice");
+
+        List<Account> theAccounts = null;
+
+        try {
+            boolean flag = true;
+             theAccounts = accountDAO.findAccount(flag);
+
+        } catch (Exception e) {
+            System.out.println("Caught exception: " + e);
+        }
+
+        System.out.println("Throwing theAccounts: " + theAccounts);
+    }
+
+    private void doStuffTheAfterReturningAdvice(AccountDAO accountDAO, MembershipDAO membershipDAO) {
+        System.out.println("\n\n AfterReturning Advice");
+
+
+        var theAccounts = accountDAO.findAccount();
+        System.out.println("Returning theAccounts: " + theAccounts);
     }
 
     private void doStuffTheBeforeAdvice(AccountDAO accountDAO, MembershipDAO membershipDAO) {
@@ -255,8 +283,6 @@ public class MyappApplication {
         appDAO.update(course);
         System.out.println("Updated");
     }
-
-    private static final SecureRandom rand = new SecureRandom();
 
     private String generateRandomString(int length) {
         StringBuilder sb = new StringBuilder(length);

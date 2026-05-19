@@ -3,6 +3,8 @@ package com.kp8997.springboot.myapp.core.dao;
 
 import com.kp8997.springboot.myapp.core.entity.Account;
 
+import java.util.List;
+
 public interface AccountDAO {
     void addAccount();
 
@@ -19,4 +21,8 @@ public interface AccountDAO {
     void setServiceCode(String serviceCode);
 
     void doWork();
+
+    List<Account> findAccount();
+
+    List<Account>  findAccount(boolean flag);
 }
