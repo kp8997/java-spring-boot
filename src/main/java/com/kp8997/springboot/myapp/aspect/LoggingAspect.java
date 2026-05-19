@@ -1,9 +1,12 @@
 package com.kp8997.springboot.myapp.aspect;
 
+import com.kp8997.springboot.myapp.core.entity.Account;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.junit.jupiter.api.Order;
 import org.springframework.stereotype.Component;
 
@@ -61,8 +64,22 @@ public class LoggingAspect {
     //}
 
     @Before("com.kp8997.springboot.myapp.aspect.AopExpressions.allMethodsExceptGetterSetter()")
-    private void doEveryMethodsOfPackage() {
+    private void doEveryMethodsOfPackage(JoinPoint joinPoint) {
         System.out.println("\n=======> Executing @Before the advice on any methods in doEveryMethodsOfPackage");
+
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+        System.out.println("Method: " + methodSignature);
+
+        Object[] objects = joinPoint.getArgs();
+        for (Object o : objects) {
+            if (o instanceof Account) {
+                Account a = (Account) o;
+                System.out.println("Account name: " + a.getName());
+                System.out.println("Account level: " + a.getLevel());
+            } else {
+                //System.out.println(o.toString());
+            }
+        }
     }
 
     //@Before("execution(public void updateAccount())")

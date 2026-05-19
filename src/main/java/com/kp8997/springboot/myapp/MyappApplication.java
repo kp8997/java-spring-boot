@@ -143,6 +143,8 @@ public class MyappApplication {
         accountDAO.setServiceCode("12345");
         accountDAO.getServiceCode();
         accountDAO.doWork();
+        accountDAO.addAccount(new Account("kp@test.com", "4"));
+
     }
 
     private void deleteStudent(AppDAO appDAO) {
