@@ -122,4 +122,10 @@ public class LoggingAspect {
 
         System.out.println("exception: " + exception);
     }
+
+    @After("execution(* com.kp8997.springboot.myapp.core.dao.AccountDAO.findAccount(..))")
+    public void afterFindAccountAdvice(JoinPoint joinPoint) {
+        System.out.println("\n=======> Executing @After (finally) the advice on findAccount method on successful and throwing case");
+
+    }
 }

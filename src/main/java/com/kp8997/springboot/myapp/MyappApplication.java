@@ -124,7 +124,25 @@ public class MyappApplication {
             doStuffTheBeforeAdvice(accountDAO, membershipDAO);
             doStuffTheAfterReturningAdvice(accountDAO, membershipDAO);
             doStuffTheAfterThrowingAdvice(accountDAO, membershipDAO);
+            doStuffTheAfterAdvice(accountDAO, membershipDAO);
         };
+    }
+
+    private void doStuffTheAfterAdvice(AccountDAO accountDAO, MembershipDAO membershipDAO) {
+        System.out.println("\n\n After Advice");
+
+        List<Account> theAccounts = null;
+
+        try {
+            boolean flag = true;
+            theAccounts = accountDAO.findAccount(flag);
+
+        } catch (Exception e) {
+            System.out.println("After Caught exception: " + e);
+        }
+
+        System.out.println("After Throwing theAccounts: " + theAccounts);
+
     }
 
     private void doStuffTheAfterThrowingAdvice(AccountDAO accountDAO, MembershipDAO membershipDAO) {
