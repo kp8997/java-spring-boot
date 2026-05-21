@@ -136,9 +136,19 @@ public class LoggingAspect {
 
         long start = System.currentTimeMillis();
 
-        Object value = joinPoint.proceed();
+        Object value = null;
 
-        long end = System.currentTimeMillis();
+        try {
+            joinPoint.proceed();
+
+        } catch (Exception e) {
+            //throw new RuntimeException(e);
+            System.out.println(e.getMessage());
+
+            value = "Major exception, but we handle it in try catch block of @around advice of AOP";
+        }
+
+        long end = System.nanoTime();
 
         System.out.println("Time to run this method: " + (start - end));
 

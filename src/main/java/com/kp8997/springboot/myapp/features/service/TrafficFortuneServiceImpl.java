@@ -9,10 +9,19 @@ public class TrafficFortuneServiceImpl implements TrafficFortuneService {
     @Override
     public String getFortune() {
         try {
-            TimeUnit.SECONDS.sleep(5);
+            TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         return "";
+    }
+
+    @Override
+    public String getFortune(boolean flag) {
+        if (flag) {
+            throw new RuntimeException("Caught exception for getFortune");
+        }
+
+        return "Heavy traffic after fortune";
     }
 }

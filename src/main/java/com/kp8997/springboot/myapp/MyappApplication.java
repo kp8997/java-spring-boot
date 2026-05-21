@@ -127,11 +127,21 @@ public class MyappApplication {
             doStuffTheAfterReturningAdvice(accountDAO, membershipDAO);
             doStuffTheAfterThrowingAdvice(accountDAO, membershipDAO);
             doStuffTheAfterAdvice(accountDAO, membershipDAO);
-            doStuffTheArroundAdvice(trafficFortuneService);
+            doStuffTheAroundAdvice(trafficFortuneService);
+            doStuffTheAroundAdviceHandleException(trafficFortuneService);
         };
     }
 
-    private void doStuffTheArroundAdvice(TrafficFortuneService trafficFortuneService) {
+    private void doStuffTheAroundAdviceHandleException(TrafficFortuneService trafficFortuneService) {
+        System.out.println("\n Around advice");
+
+        System.out.println("Calling getFortune()");
+
+        boolean flag = true;
+        String data = trafficFortuneService.getFortune(flag);
+    }
+
+    private void doStuffTheAroundAdvice(TrafficFortuneService trafficFortuneService) {
         System.out.println("\n Around advice");
 
         System.out.println("Calling getFortune()");
