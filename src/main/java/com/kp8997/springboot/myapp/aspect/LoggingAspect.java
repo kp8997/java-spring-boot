@@ -134,7 +134,7 @@ public class LoggingAspect {
     public Object aroundGetFortune(ProceedingJoinPoint joinPoint) throws Throwable {
         System.out.println("\n=======> Executing @Around the advice with BEFORE proceed function on getFortune method");
 
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
 
         Object value = null;
 
@@ -150,7 +150,7 @@ public class LoggingAspect {
 
         long end = System.nanoTime();
 
-        System.out.println("Time to run this method: " + (start - end));
+        System.out.println("Time to run this method: " + (end - start));
 
         System.out.println("\n=======> Executing @Around the advice with AFTER proceed function on getFortune method");
 
