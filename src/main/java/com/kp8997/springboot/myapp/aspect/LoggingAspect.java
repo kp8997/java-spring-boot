@@ -143,9 +143,13 @@ public class LoggingAspect {
 
         } catch (Exception e) {
             //throw new RuntimeException(e);
-            System.out.println(e.getMessage());
+            System.out.println("Important issue happened: " + e.getMessage());
 
-            value = "Major exception, but we handle it in try catch block of @around advice of AOP";
+            // if we want override exception by successful data
+            //value = "Major exception, but we handle it in try catch block of @around advice of AOP";
+
+            // if we want to log and keep the exception to main program
+            throw e;
         }
 
         long end = System.nanoTime();
