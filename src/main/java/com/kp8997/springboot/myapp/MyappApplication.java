@@ -5,6 +5,7 @@ import com.kp8997.springboot.myapp.core.dao.AppDAO;
 import com.kp8997.springboot.myapp.core.dao.MembershipDAO;
 import com.kp8997.springboot.myapp.core.dao.StudentDAO;
 import com.kp8997.springboot.myapp.core.entity.*;
+import com.kp8997.springboot.myapp.features.service.TrafficFortuneService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -82,7 +83,8 @@ public class MyappApplication {
     public CommandLineRunner commandLineRunner(StudentDAO studentDAO,
                                                AppDAO appDAO,
                                                AccountDAO accountDAO,
-                                               MembershipDAO membershipDAO) {
+                                               MembershipDAO membershipDAO,
+                                               TrafficFortuneService trafficFortuneService) {
         return r -> {
             System.out.println("Hello World");
 
@@ -125,7 +127,16 @@ public class MyappApplication {
             doStuffTheAfterReturningAdvice(accountDAO, membershipDAO);
             doStuffTheAfterThrowingAdvice(accountDAO, membershipDAO);
             doStuffTheAfterAdvice(accountDAO, membershipDAO);
+            doStuffTheArroundAdvice(trafficFortuneService);
         };
+    }
+
+    private void doStuffTheArroundAdvice(TrafficFortuneService trafficFortuneService) {
+        System.out.println("\n Around advice");
+
+        System.out.println("Calling getFortune()");
+
+        String data = trafficFortuneService.getFortune();
     }
 
     private void doStuffTheAfterAdvice(AccountDAO accountDAO, MembershipDAO membershipDAO) {

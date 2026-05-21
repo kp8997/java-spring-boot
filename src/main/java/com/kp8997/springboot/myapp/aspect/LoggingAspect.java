@@ -2,6 +2,7 @@ package com.kp8997.springboot.myapp.aspect;
 
 import com.kp8997.springboot.myapp.core.entity.Account;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.junit.jupiter.api.Order;
@@ -127,5 +128,22 @@ public class LoggingAspect {
     public void afterFindAccountAdvice(JoinPoint joinPoint) {
         System.out.println("\n=======> Executing @After (finally) the advice on findAccount method on successful and throwing case");
 
+    }
+
+    @Around("execution(* com.kp8997.springboot.myapp.features.service.TrafficFortuneService.getFortune(..)))")
+    public Object aroundGetFortune(ProceedingJoinPoint joinPoint) throws Throwable {
+        System.out.println("\n=======> Executing @Around the advice with BEFORE proceed function on getFortune method");
+
+        long start = System.currentTimeMillis();
+
+        Object value = joinPoint.proceed();
+
+        long end = System.currentTimeMillis();
+
+        System.out.println("Time to run this method: " + (start - end));
+
+        System.out.println("\n=======> Executing @Around the advice with AFTER proceed function on getFortune method");
+
+        return value;
     }
 }
