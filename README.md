@@ -129,3 +129,5 @@ CREATE TABLE courses_students (
  CONSTRAINT fk_courses_students_course FOREIGN KEY (course_id) REFERENCES courses (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
  CONSTRAINT fk_courses_students_student FOREIGN KEY (student_id) REFERENCES students (id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
+
+update this for counted commit
